@@ -1,0 +1,97 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>tec.softwareDesign</groupId>
+    <artifactId>proyecto1</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>proyecto1</name>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jakartaee>10.0.0</jakartaee>
+    </properties>
+    
+    <dependencies>
+    <!-- Dependencia javax.ejb -->
+        <dependency>
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Dependencia javax.faces-api -->
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>javax.faces-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+        <!-- Dependencia javax.inject -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Dependencia javax.activation -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <!-- Dependencia mail.jar -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependencia BCCR server -->
+        <dependency>
+            <groupId>javax.xml.soap</groupId>
+            <artifactId>javax.xml.soap-api</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        
+        <!-- Base de datos-->
+        
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.4.0</version> 
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
