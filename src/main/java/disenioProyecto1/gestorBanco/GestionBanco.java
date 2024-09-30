@@ -9,45 +9,34 @@ package disenioProyecto1.gestorBanco;
  * @author Nelson
  */
 
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numClientesCreados;
+import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numCuentasCreadas;
 import java.util.ArrayList;
 import java.util.List;
-
 import disenioProyecto1.usuarios.CJuridico;
 import disenioProyecto1.usuarios.CFisico;
+import java.sql.SQLException;
 
 public class GestionBanco {
-    public static int contadorCliente = 0;
-    public static int contadorCBancaria = 0;
-    private static ArrayList<CJuridico> J = new ArrayList<>();
-    private static ArrayList<CFisico> F = new ArrayList<>();
-    private static ArrayList<CuentaBancaria> cuentasBancarias = new ArrayList<>();
 
 
-    public static String generarCodigoCliente() {
-        contadorCliente++;
-        return "CTE" + contadorCliente;
+
+    public static String generarCodigoCliente() {      
+        return "CTE" + numClientesCreados();
     }
     public static String generarCodigoCuentaBancaria() {
-        contadorCBancaria++;
-        return "CTA" + contadorCBancaria;
+        return "CTA" + numCuentasCreadas();
     }
 
-    public static void agregarAListaCJuridico(CJuridico obj){
-        J.add(obj);
+
+    public static void agregarCuentaBasesDatos(CuentaBancaria obj)
+    {
+    
+    
+    
     }
 
-    public static void agregarAListaCFisico(CFisico obj){
-        F.add(obj);
-    }
-    public static void agregarAListaCuentasBancarias(CuentaBancaria obj){
-        cuentasBancarias.add(obj);
-    }
 
-    public static ArrayList<CFisico> getF() {
-        return F;
-    }
-
-    public static ArrayList<CJuridico> getJ() {
-        return J;
-    }
 }
+  

@@ -27,16 +27,18 @@ public class CuentaBancaria {
     public String PIN_Asociado;
     public double dineroEnLaCuenta;
     private static List<Transaccion> transacciones = new ArrayList<>();
-    private static double regisComisiones = 0;
-    private static int cantidadRetiros = 0;
+    private double regisComisiones;
+    private int cantidadRetiros;
     
-    public CuentaBancaria(String identificador, String PIN_Asociado, int depocitoInicial) { //verificar en documento PIN ASOCIADO
+    public CuentaBancaria(String identificador, String PIN_Asociado, int depocitoInicial, double regisComisiones, int cantRetiros, boolean status) { //verificar en documento PIN ASOCIADO
 
         this.identificador = identificador;
         this.PIN_Asociado = PIN_Asociado;
         this.fechaCreacion = obtenerFechaActual();
-        this.statusCuentaActiva = true;
+        this.statusCuentaActiva = status;
         this.dineroEnLaCuenta = depocitoInicial;
+        this.regisComisiones = regisComisiones;
+        this.cantidadRetiros = cantidadRetiros;
     }
 
     public void depositar(double cant){
@@ -58,12 +60,18 @@ public class CuentaBancaria {
         }else{
             System.out.println("Fallo");}
     }
-
-
+    
+    public void setComision(double comision){
+        regisComisiones = regisComisiones + comision;
+    
+    }
+    
     private void crearRegistro(String tipoDeTransaccion, double dineroEnlaCuenta, double cant, double comision){
         Transaccion transaccion = generarRegistro(cant, tipoDeTransaccion, comision,dineroEnlaCuenta);
         agregarTransaccionALista(transaccion);
     }
+    
+    
     private void aplicarMulta5Porciento(double comision){
         if (validarMulta(dineroEnLaCuenta, comision)){
             dineroEnLaCuenta = dineroEnLaCuenta - comision;}
@@ -83,26 +91,7 @@ public class CuentaBancaria {
         transacciones.add(registroTransaccion);
     }
     private Transaccion generarRegistro(double cant, String tipo, double comision, double dineroEnLaCuenta){
-        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta);
-    }
-    public void imprimir(){
-        System.out.println("Identificador de la Cuenta: " + identificador);
-        System.out.println("Fecha de Creación: " + fechaCreacion);
-        System.out.println("Estado de la Cuenta: " + (statusCuentaActiva ? "Activa" : "Inactiva"));
-        System.out.println("PIN Asociado: " + PIN_Asociado);
-        System.out.println("Dinero en la Cuenta: " + dineroEnLaCuenta);
-        System.out.println("Total de comisiones registradas: " + regisComisiones);
-        System.out.println("Cantidad de retiros: " + cantidadRetiros);
-        System.out.println("--------------------------");
-        System.out.println("Transacciones: ");
-        imprimirRegistros();
-        System.out.println("--------------------------");
-
-    }
-    public void imprimirRegistros(){
-        for (Transaccion transacciones : transacciones){
-            transacciones.imprimir();
-        }
+        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, identificador);
     }
 }
 

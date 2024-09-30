@@ -13,7 +13,7 @@ import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.conse
 public class CFisico extends Cliente {
     private String fechaNacimiento;
    
-    public CFisico(int telefono, String correo, String nombre, int identificacion, String fechaNacimiento, int maxCuentas){
+    public CFisico(int telefono, String correo, String nombre, int identificacion, String fechaNacimiento, int maxCuentas, String codigoCliente){
         String cuenta = conseguirNombreDeUsuario(correo);
         if (cuenta.equals("n")){return;}
         this.tipo = "fisico"; // cambiar con la capa de vista
@@ -21,7 +21,7 @@ public class CFisico extends Cliente {
         this.cuenta = cuenta;
         this.correo = correo;
         this.nombre = nombre;
-        this.codigoCliente = GestionBanco.generarCodigoCliente();
+        this.codigoCliente = codigoCliente;
         this.identificacion = identificacion;
         this.fechaNacimiento = fechaNacimiento;
         this.maxCuentas = maxCuentas;

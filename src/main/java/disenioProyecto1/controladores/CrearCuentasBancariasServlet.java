@@ -5,7 +5,6 @@
 package disenioProyecto1.controladores;
 
 import disenioProyecto1.gestorBanco.CuentaBancaria;
-import static disenioProyecto1.gestorBanco.GestionBanco.agregarAListaCuentasBancarias;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,15 +21,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "CrearCuentasBancariasServlet", urlPatterns = {"/CrearCuentasBancariasServlet"})
 public class CrearCuentasBancariasServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,9 +48,12 @@ public class CrearCuentasBancariasServlet extends HttpServlet {
         } else {
             int montoInt = Integer.parseInt(montoInicial);
 
-            CuentaBancaria obj = new CuentaBancaria(identidad,  pin , montoInt);
-            agregarAListaCuentasBancarias(obj);
+            CuentaBancaria obj = new CuentaBancaria(identidad,  pin , montoInt, 0, 0, true);
             
+
+
+// agregarAListaCuentasBancarias(obj);
+            // base de datos
             // Redirigir a la página de confirmación
             response.sendRedirect("confirmacionCuenta.jsp");   // Redirigir a la página de confirmación
 

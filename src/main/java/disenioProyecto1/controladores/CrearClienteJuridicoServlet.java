@@ -5,7 +5,6 @@
 package disenioProyecto1.controladores;
 
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
-import static disenioProyecto1.gestorBanco.GestionBanco.agregarAListaCJuridico;
 import disenioProyecto1.usuarios.CJuridico;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -41,7 +40,7 @@ public class CrearClienteJuridicoServlet extends HttpServlet {
            
             
             CJuridico obj = new CJuridico(nombre, telefonoInt, email, tipoNegocio, razonSocial, cedulaJuridicaInt);
-            agregarAListaCJuridico(obj);
+            //agregarAListaCJuridico(obj);
             
             request.getRequestDispatcher("confirmacionClienteJuridio.jsp").forward(request, response);
 

@@ -5,16 +5,20 @@
 package disenioProyecto1.controladores;
 
 
-import disenioProyecto1.capaDatos.conexionSql.ConexionBasesDeDatos;
+import disenioProyecto1.capaDatos.conexionSql.BasesDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
 import jakarta.servlet.annotation.WebServlet;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
-import static disenioProyecto1.gestorBanco.GestionBanco.agregarAListaCFisico;
+import static disenioProyecto1.capaDatos.validaciones.ValidarNuevosUsuarios.validarNuevoCFisico;
+import static disenioProyecto1.gestorBanco.GestionBanco.generarCodigoCliente;
+
 import disenioProyecto1.usuarios.CFisico;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -49,14 +53,22 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         if (valoresInt == null) {
             return; // Se maneja el error dentro de la función
         }
-
-        CFisico obj = new CFisico(valoresInt[0], email, nombre, valoresInt[1], fechaNacimiento, valoresInt[2]);
-        agregarAListaCFisico(obj);
         
+        boolean ClienteNoExiste = false;
+        try {
+            ClienteNoExiste = validarNuevoCFisico(valoresInt[1]);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearClienteFisicoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (ClienteNoExiste){
+            String codigoCliente = generarCodigoCliente();   
+            
+            CFisico obj = new CFisico(valoresInt[0], email, nombre, valoresInt[1], fechaNacimiento, valoresInt[2], codigoCliente);
+            delegarCrearCFisico(obj);
+            prepararConfirmacion(request, nombre, telefono, email, identificacion, maxCuentas, fechaNacimiento);
+            request.getRequestDispatcher("/confirmacionClienteFisico.jsp").forward(request, response);
+        }   
         
-        // pagina de confirmacion
-        prepararConfirmacion(request, nombre, telefono, email, identificacion, maxCuentas, fechaNacimiento);
-        request.getRequestDispatcher("/confirmacionClienteFisico.jsp").forward(request, response);
     }
 
     private String validarDatos(String nombre, String email, String telefono) {

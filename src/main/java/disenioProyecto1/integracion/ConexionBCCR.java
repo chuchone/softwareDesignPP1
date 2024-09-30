@@ -1,14 +1,22 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package disenioProyecto1.integracion;
 
-package disenioProyecto1.dependenciasExternas;
-
-import javax.xml.soap.*;
-import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.soap.MessageFactory;
+import javax.xml.soap.MimeHeaders;
+import javax.xml.soap.SOAPBody;
+import javax.xml.soap.SOAPConnection;
+import javax.xml.soap.SOAPConnectionFactory;
+import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.soap.SOAPPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -16,9 +24,13 @@ import org.w3c.dom.NodeList;
  *
  * @author Nelson
  */
-
-
-public class ConexiónBCCR {
+public class ConexionBCCR {
+    
+    public static double obtenerTipoCambio(String tipoOperacion){
+        String tipoDeCambio = obtenerTipoDeCambio(tipoOperacion);
+        double valor = Double.parseDouble(tipoDeCambio);
+        return valor;
+    }
     
     public static String obtenerTipoDeCambio(String tipoDeOperacion)
     {
@@ -102,5 +114,7 @@ public class ConexiónBCCR {
             e.printStackTrace();
             return null; // O manejar la excepción adecuadamente
         }
-    }
+    }    
+    
+    
 }
