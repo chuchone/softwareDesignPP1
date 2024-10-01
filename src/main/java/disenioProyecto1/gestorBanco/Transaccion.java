@@ -16,7 +16,7 @@ public class Transaccion {
     public double comision;
     public String numCuentaQuePertenese;
 
-    Transaccion (double monto, String tipoTransaccion, String fecha, double comision, double dineroEnCuenta, String numCuenta){
+    public Transaccion (double monto, String tipoTransaccion, String fecha, double comision, double dineroEnCuenta, String numCuenta){
         this.dineroEnCuenta = dineroEnCuenta;
         this.fecha = fecha;
         this.monto = monto;

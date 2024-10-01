@@ -102,7 +102,7 @@
         <h1>Cambiar PIN</h1>
     </header>
 
-    <form action="confirmacionCambiarPin.jsp" method="post" onsubmit="return validarFormulario()">
+    <form action="cambiarPINServlet" method="post">
         <label for="cuenta">Número de Cuenta:</label>
         <input type="text" id="cuenta" name="cuenta" maxlength="7" required>
 

@@ -47,7 +47,9 @@
     </header>
 
     <div class="container">
-        <p>Estimado cliente: <strong>Juan Pérez</strong>, le informamos que se ha cambiado satisfactoriamente el PIN de su cuenta <strong>CTA12345</strong>.</p>
+        <p>Estimado cliente, le informamos que se ha cambiado satisfactoriamente el PIN de su cuenta.</p>
+        <a href="index.jsp" class="account-option">Volver al Inicio</a>
+
     </div>
 </body>
 </html>

@@ -95,7 +95,7 @@
         <h1>Realizar Depósito en Colones</h1>
     </header>
 
-    <form action="confirmacionDepositoColones.jsp" method="post" onsubmit="return validarFormulario()">
+    <form action="DepositoEnColonesServlet" method="post">
         <label for="cuenta">Número de Cuenta:</label>
         <input type="text" id="cuenta" name="cuenta" maxlength="7" required>
 

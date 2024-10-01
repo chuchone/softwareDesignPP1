@@ -33,7 +33,7 @@ public class CuentaBancaria {
     public String numeroCuenta;
     public String nombreDuenio;
     
-    public CuentaBancaria(long cedulaPersonaAsociada, String PIN_Asociado, int depocitoInicial, double regisComisiones, double cantRetiros, boolean status, String fechaCreacion, String numeroCuenta, String nombreDuenio) { //verificar en documento PIN ASOCIADO
+    public CuentaBancaria(long cedulaPersonaAsociada, String PIN_Asociado, double depocitoInicial, double regisComisiones, double cantRetiros, boolean status, String fechaCreacion, String numeroCuenta, String nombreDuenio) { //verificar en documento PIN ASOCIADO
         this.cedulaPersonaAsociada = cedulaPersonaAsociada;
         this.PIN_Asociado = PIN_Asociado;
         this.fechaCreacion = fechaCreacion;

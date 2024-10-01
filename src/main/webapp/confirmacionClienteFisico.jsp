@@ -38,6 +38,23 @@ co<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="
             font-size: 1.2em;
             margin-bottom: 10px;
         }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-button {
+            display: inline-block;
+            background-color: #ffcc80;
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #ffa726;
+        }
     </style>
 </head>
 <body>
