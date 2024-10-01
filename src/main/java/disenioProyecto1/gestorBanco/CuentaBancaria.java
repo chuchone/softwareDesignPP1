@@ -4,6 +4,7 @@
  */
 package disenioProyecto1.gestorBanco;
 
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.insertarDatosCBancaria;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import disenioProyecto1.gestorBanco.Transaccion;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesInternas;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarMulta;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarRetiro;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -45,11 +47,11 @@ public class CuentaBancaria {
         this.nombreDuenio = nombreDuenio;
     }
 
-    public void depositar(double cant){
+    public void depositar(double cant) throws SQLException{
         dineroEnLaCuenta = dineroEnLaCuenta + cant;
         crearRegistro("Deposito", dineroEnLaCuenta, cant, 0);
     }
-    public void retirar(double cant){ // falta mejorar diseño del metodo, implementarlo mejor
+    public void retirar(double cant) throws SQLException{ // falta mejorar diseño del metodo, implementarlo mejor
         double comision = 0;
         if (validarRetiro(dineroEnLaCuenta, cant)) {
             dineroEnLaCuenta = dineroEnLaCuenta - cant;
@@ -70,9 +72,9 @@ public class CuentaBancaria {
     
     }
     
-    private void crearRegistro(String tipoDeTransaccion, double dineroEnlaCuenta, double cant, double comision){
+    private void crearRegistro(String tipoDeTransaccion, double dineroEnlaCuenta, double cant, double comision) throws SQLException{
         Transaccion transaccion = generarRegistro(cant, tipoDeTransaccion, comision,dineroEnlaCuenta);
-        agregarTransaccionALista(transaccion);
+        insertarDatosCBancaria(transaccion);
     }
     
     

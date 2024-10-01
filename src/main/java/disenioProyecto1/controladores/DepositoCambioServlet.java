@@ -6,6 +6,8 @@ package disenioProyecto1.controladores;
 
 import disenioProyecto1.gestorBanco.ResultadoCuenta;
 import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaDep;
+import static disenioProyecto1.integracion.ConexionBCCR.convertirDolaresAColones;
+import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,38 +23,39 @@ import java.util.logging.Logger;
  *
  * @author Nelson
  */
-
-@WebServlet("/DepositoEnColonesServlet")
-public class DepositoEnColonesServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+@WebServlet("/DepositoCambioServlet")
+public class DepositoCambioServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Obtener los parámetros del formulario
-        String cuenta = request.getParameter("cuenta");
+        // Obtener parámetros del formulario
+        String numeroCuenta = request.getParameter("numeroCuenta");
         String montoDepositoStr = request.getParameter("montoDeposito");
+        double monto = convertirStringADouble(montoDepositoStr);        
+        double tipoCambio = obtenerTipoCambio("318");
+        double montoEnColones = convertirDolaresAColones(monto, tipoCambio);
         
         try {
-            double montoDouble = Double.parseDouble(montoDepositoStr);
-            ResultadoCuenta informacionCuenta = existeCuentaBancariaDep(cuenta, montoDouble);
-            
+            ResultadoCuenta informacionCuenta = existeCuentaBancariaDep(numeroCuenta, montoEnColones);
             if (informacionCuenta.isExisteCuenta()) {
                 // Pasar los valores como atributos al JSP
-                request.setAttribute("numeroCuenta", cuenta);
-                request.setAttribute("montoDepositado", montoDouble);
+                request.setAttribute("numeroCuenta", numeroCuenta);
+                request.setAttribute("montoDepositado", montoEnColones);
                 request.setAttribute("montoComision", informacionCuenta.getRegisComisiones());
                 
                 // Redirigir a la página de confirmación
-                request.getRequestDispatcher("confirmacionDepositoColones.jsp").forward(request, response);
-            } else {
-                // Redirigir a una página de error si la cuenta no existe
+                request.getRequestDispatcher("confirmacionDepositoDolares.jsp").forward(request, response);
+            }else{
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
-            
         } catch (SQLException ex) {
-            Logger.getLogger(DepositoEnColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+            Logger.getLogger(DepositoCambioServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
+    public static double convertirStringADouble(String str) throws NumberFormatException {
+        return Double.parseDouble(str);
     }
 
 }

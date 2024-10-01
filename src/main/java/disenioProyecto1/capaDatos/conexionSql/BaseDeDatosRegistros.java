@@ -18,7 +18,7 @@ import java.util.List;
  * @author Nelson
  */
 public class BaseDeDatosRegistros {
-    public static boolean insertarDatosCBancaria(Transaccion obj) throws SQLException{
+    public static void insertarDatosCBancaria(Transaccion obj) throws SQLException{
     
         BasesDatos baseDeDatos = conectarBasesDeDatos();
         Connection con = baseDeDatos.getConnection();
@@ -39,10 +39,8 @@ public class BaseDeDatosRegistros {
             // Ejecuta la sentencia de inserción
             int rowsInserted = statement.executeUpdate();
 
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         } finally {
             if (statement != null) {
                 statement.close();

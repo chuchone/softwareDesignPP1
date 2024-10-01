@@ -47,8 +47,4 @@ public class ValidarNuevosUsuarios {
         return true;  // Si no se encuentra ninguna coincidencia, retorna true
     }
     
-    public static boolean existeCuentaBancaria(String numCuenta){
-    
-        return true;
-    }
 }

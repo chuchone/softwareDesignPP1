@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Confirmación de Depósito</title>
+    <title>Confirmación de Depósito de dolares</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,7 +55,7 @@
 <body>
     <div class="container">
         <h1>Confirmación de Depósito</h1>
-        <p>El monto real depositado a su cuenta <strong><%= request.getAttribute("numeroCuenta") %></strong> es de <strong><%= String.format("%.2f", request.getAttribute("montoDepositado")) %></strong> colones.</p>
+        <p>El monto real depositado a su cuenta aplicando el cambio de divisa a colones es: <strong><%= request.getAttribute("numeroCuenta") %></strong> es de <strong><%= String.format("%.2f", request.getAttribute("montoDepositado")) %></strong> colones.</p>
         <p>Las comisiones suman un monto total de: <strong><%= String.format("%.2f", request.getAttribute("montoComision")) %></strong> colones, que se han ido rebajado de su sueldo actual.</p>
         <a href="index.jsp">Volver a la página principal</a>
     </div>

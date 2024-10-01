@@ -23,6 +23,8 @@ public class Transaccion {
         this.tipoTransaccion = tipoTransaccion;
         this.comision = comision;
         this.numCuentaQuePertenese = numCuenta;
+        
+        
     }
 
     public boolean determinarSiHayCargo(){

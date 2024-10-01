@@ -32,6 +32,10 @@ public class ConexionBCCR {
         return valor;
     }
     
+    public static double convertirDolaresAColones(double montoDolares, double tipoCambio) {
+        return montoDolares * tipoCambio;
+    }
+    
     public static String obtenerTipoDeCambio(String tipoDeOperacion)
     {
         try {

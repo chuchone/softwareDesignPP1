@@ -6,10 +6,13 @@ package disenioProyecto1.capaDatos.validaciones;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
+import disenioProyecto1.gestorBanco.CuentaBancaria;
 import disenioProyecto1.usuarios.CFisico;
 import disenioProyecto1.usuarios.CJuridico;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,6 +25,7 @@ public class ValidacionesCuentas {
         }
         return null; // Sin errores
     }
+    
 
     public static String validarPin(String pin) {
         if (pin.length() != 4 || !pin.matches("\\d{4}")) {
