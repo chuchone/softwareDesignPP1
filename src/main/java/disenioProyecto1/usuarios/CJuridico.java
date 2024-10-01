@@ -10,17 +10,17 @@ import disenioProyecto1.gestorBanco.GestionBanco;
  * @author Nelson
  */
 public class CJuridico extends Cliente {
-    private String tipoNegocio;
-    private String razonSocial;
+    public String tipoNegocio;
+    public String razonSocial;
     
-    public CJuridico (String nombre, int telefono, String correo, String tipoNegocio, String razonSocial, int cedulaJ){
+    public CJuridico (String nombre, int telefono, String correo, String tipoNegocio, String razonSocial, long cedulaJuridicaLong){
         String cuenta = conseguirNombreDeUsuario(correo);
 
         this.tipoNegocio = tipoNegocio;
         this.tipo = "Juridico"; // cambiar con la capa de vista
         this.razonSocial = razonSocial;
-        this.identificacion = cedulaJ;
-        this.maxCuentas = 14; // mejorar
+        this.identificacion = cedulaJuridicaLong;
+        this.maxCuentas = 999999999; // mejorar
         this.nombre = nombre;
         this.telefono = telefono;
         this.cuenta = cuenta;

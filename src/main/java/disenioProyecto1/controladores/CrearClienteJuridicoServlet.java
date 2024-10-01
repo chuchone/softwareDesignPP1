@@ -4,7 +4,9 @@
  */
 package disenioProyecto1.controladores;
 
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.insertarClienteJuridico;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
+import static disenioProyecto1.capaDatos.validaciones.ValidarNuevosUsuarios.validarNuevoCJuridico;
 import disenioProyecto1.usuarios.CJuridico;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -12,6 +14,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,29 +29,41 @@ public class CrearClienteJuridicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String nombre = request.getParameter("nombre").trim();
-        String categoria = request.getParameter("categoria").trim();
-        String telefono = request.getParameter("telefono").trim();
-        String email = request.getParameter("email").trim();
-        String tipoNegocio = request.getParameter("tipoNegocio").trim();
-        String cedulaJuridica = request.getParameter("cedulaJuridica").trim();
-        String razonSocial = request.getParameter("razonSocial").trim();
-
+        String nombre = request.getParameter("nombre") != null ? request.getParameter("nombre").trim() : "";
+        String categoria = request.getParameter("categoria") != null ? request.getParameter("categoria").trim() : "";
+        String telefono = request.getParameter("telefono") != null ? request.getParameter("telefono").trim() : "";
+        String email = request.getParameter("email") != null ? request.getParameter("email").trim() : "";
+        String tipoNegocio = request.getParameter("tipoNegocio") != null ? request.getParameter("tipoNegocio").trim() : "";
+        String cedulaJuridica = request.getParameter("cedulaJuridica") != null ? request.getParameter("cedulaJuridica").trim() : "";
+        String razonSocial = request.getParameter("razonSocial") != null ? request.getParameter("razonSocial").trim() : "";
+        
+        
         try {
             realizarValidaciones(nombre, categoria, telefono, email, tipoNegocio, cedulaJuridica, razonSocial);
-            // Si todas las validaciones pasan, redirigir a la página de confirmación
-            int telefonoInt = Integer.parseInt(telefono);
-            int cedulaJuridicaInt = Integer.parseInt(cedulaJuridica);
-           
-            
-            CJuridico obj = new CJuridico(nombre, telefonoInt, email, tipoNegocio, razonSocial, cedulaJuridicaInt);
-            //agregarAListaCJuridico(obj);
-            
-            request.getRequestDispatcher("confirmacionClienteJuridio.jsp").forward(request, response);
+            System.out.println(telefono);
+            System.out.println(cedulaJuridica);
+            int telefonoInt = Integer.parseInt(telefono.trim());
+            long cedulaJuridicaLong = Long.parseLong(cedulaJuridica.trim());
 
+
+            CJuridico obj = new CJuridico(nombre, telefonoInt, email, tipoNegocio, razonSocial, cedulaJuridicaLong);
+            if(validarNuevoCJuridico(obj.identificacion)){
+                insertarClienteJuridico(obj);
+                request.getRequestDispatcher("confirmacionClienteJuridico.jsp").forward(request, response);
+            }else{
+                request.setAttribute("mensajeDeError", "ClienteJuridico ya existe.");
+                request.getRequestDispatcher("errorCJuridico.jsp").forward(request, response);
+            }
+            
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("mensajeDeError", "Teléfono o cédula jurídica contienen caracteres no válidos.");
+            request.getRequestDispatcher("errorCJuridico.jsp").forward(request, response);
         } catch (ValidationException e) {
             request.setAttribute("mensajeDeError", e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("errorCJuridico.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CrearClienteJuridicoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -55,9 +72,14 @@ public class CrearClienteJuridicoServlet extends HttpServlet {
         if (!ValidacionesFormularios.validarCamposRequeridos(nombre, categoria, telefono, email, tipoNegocio, cedulaJuridica, razonSocial)) {
             throw new ValidationException("Todos los campos son obligatorios.");
         }
-        validar(ValidacionesFormularios.validarTelefonoCJuridico(telefono), "El número de teléfono debe tener 10 dígitos.");
+
+        validar(ValidacionesFormularios.validarTelefonoCJuridico(telefono), "El número de teléfono debe tener 8 dígitos.");
         validar(ValidacionesFormularios.validarEmail(email), "Formato de correo electrónico incorrecto.");
-        validar(ValidacionesFormularios.validarCedulaJuridica(cedulaJuridica), "La cédula jurídica debe tener 10 dígitos.");
+        validar(ValidacionesFormularios.validarCedulaJuridica(cedulaJuridica), "La cédula jurídica debe tener 11 dígitos.");
+
+        // Validar si los valores son numéricos
+        validar(telefono.matches("\\d+"), "El número de teléfono debe contener solo dígitos.");
+        validar(cedulaJuridica.matches("\\d+"), "La cédula jurídica debe contener solo dígitos.");
     }
 
     private void validar(boolean condicion, String mensajeError) throws ValidationException {

@@ -32,7 +32,7 @@ public class BaseDeDatosCFisico {
             insertador.setInt(1, obj.telefono);
             insertador.setString(2, obj.cuenta);
             insertador.setString(3, obj.correo);
-            insertador.setInt(4, obj.identificacion);
+            insertador.setLong(4, obj.identificacion);
             insertador.setString(5, obj.tipo); // Asegúrate de que "fisico" está asignado correctamente
             insertador.setInt(6, obj.maxCuentas);
             insertador.setString(7, obj.getfechaNacimiento());

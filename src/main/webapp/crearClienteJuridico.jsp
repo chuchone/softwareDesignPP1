@@ -89,7 +89,7 @@
         <input type="text" id="tipoNegocio" name="tipoNegocio" required>
 
         <label for="cedulaJuridica">Cédula Jurídica:</label>
-        <input type="text" id="cedulaJuridica" name="cedulaJuridica" required maxlength="10">
+        <input type="text" id="cedulaJuridica" name="cedulaJuridica" required maxlength="11">
 
         <label for="razonSocial">Razón Social:</label>
         <input type="text" id="razonSocial" name="razonSocial" required>

@@ -13,7 +13,8 @@ import disenioProyecto1.gestorBanco.Transaccion;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesInternas;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarMulta;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarRetiro;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author Nelson
@@ -21,24 +22,26 @@ import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.valid
 
 
 public class CuentaBancaria {
-    public String identificador;
+    public String cedulaPersonaAsociada;
     public String fechaCreacion;
     public boolean statusCuentaActiva;
     public String PIN_Asociado;
     public double dineroEnLaCuenta;
     private static List<Transaccion> transacciones = new ArrayList<>();
-    private double regisComisiones;
-    private int cantidadRetiros;
+    public double regisComisiones;
+    public int cantidadRetiros;
+    public String numeroCuenta;
     
-    public CuentaBancaria(String identificador, String PIN_Asociado, int depocitoInicial, double regisComisiones, int cantRetiros, boolean status) { //verificar en documento PIN ASOCIADO
+    public CuentaBancaria(String cedulaPersonaAsociada, String PIN_Asociado, int depocitoInicial, double regisComisiones, int cantRetiros, boolean status, String fechaCreacion, String numeroCuenta) { //verificar en documento PIN ASOCIADO
 
-        this.identificador = identificador;
+        this.cedulaPersonaAsociada = cedulaPersonaAsociada;
         this.PIN_Asociado = PIN_Asociado;
-        this.fechaCreacion = obtenerFechaActual();
+        this.fechaCreacion = fechaCreacion;
         this.statusCuentaActiva = status;
         this.dineroEnLaCuenta = depocitoInicial;
         this.regisComisiones = regisComisiones;
-        this.cantidadRetiros = cantidadRetiros;
+        this.cantidadRetiros = cantRetiros;
+        this.numeroCuenta = numeroCuenta;
     }
 
     public void depositar(double cant){
@@ -82,16 +85,16 @@ public class CuentaBancaria {
         return cant * 0.05;
     }
     public static String obtenerFechaActual(){
-            LocalDateTime fechaActual = LocalDateTime.now();
-            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            return fechaActual.format(formato);
+        Date fechaActual = new Date();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+        return formatoFecha.format(fechaActual);
     }
 
     private void agregarTransaccionALista(Transaccion registroTransaccion){
         transacciones.add(registroTransaccion);
     }
     private Transaccion generarRegistro(double cant, String tipo, double comision, double dineroEnLaCuenta){
-        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, identificador);
+        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, cedulaPersonaAsociada);
     }
 }
 

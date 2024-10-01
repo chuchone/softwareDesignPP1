@@ -13,7 +13,7 @@ public class ValidacionesFormularios {
     }
     
     public static boolean validarTelefonoCJuridico(String telefono) {
-        return telefono != null && telefono.length() == 10 && telefono.matches("\\d+");
+        return telefono != null && telefono.length() == 8 && telefono.matches("\\d+");
     }
     
     
@@ -40,7 +40,7 @@ public class ValidacionesFormularios {
     }
 
     public static boolean validarCedulaJuridica(String cedulaJuridica) {
-        return cedulaJuridica != null && cedulaJuridica.length() == 10 && cedulaJuridica.matches("\\d+");
+        return cedulaJuridica != null && cedulaJuridica.length() == 11 && cedulaJuridica.matches("\\d+");
     }
 
     public static boolean validarCamposRequeridos(String... campos) {

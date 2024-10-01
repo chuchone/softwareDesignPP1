@@ -17,7 +17,7 @@ public abstract class Cliente {
     public String nombre;
     public String codigoCliente;
     public String correo;
-    public int identificacion; // para juridico o para fisico
+    public long identificacion; // para juridico o para fisico
     public String tipo;
     public int maxCuentas;
     public void darseDeAlta(){}

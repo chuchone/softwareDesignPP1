@@ -48,49 +48,31 @@ public class BasesDatos {
     public static int numClientesCreados(){
         BasesDatos base_disenio = conectarBasesDeDatos();
         String sqlSelect = "SELECT * FROM informacionGeneral";
-        String sqlInsert = "INSERT INTO informacionGeneral (cantCuentas, cantUsuarios) VALUES (?, ?)";
         String sqlUpdate = "UPDATE informacionGeneral SET cantUsuarios = ?";
 
-        int nuevoTotalUsuarios = 0;
+        int sumaColumna2 = 0;
 
         try (Connection con = base_disenio.getConnection();
              PreparedStatement statementSelect = con.prepareStatement(sqlSelect);
              ResultSet resultSet = statementSelect.executeQuery()) {
 
-            if (resultSet.next()) { // Verifica si hay resultados
-                int cantUsuarios = resultSet.getInt("cantUsuarios");
+            if (resultSet.next()) { // Verifica si hay un registro
+                int valorColumna2 = resultSet.getInt(2); // Obtiene el valor de la columna 2
+                sumaColumna2 = valorColumna2 + 1; // Suma 1 al valor de la columna 2
 
-                // Si no hay usuarios, se inserta un nuevo registro
-                if (cantUsuarios == 0) {
-                    try (PreparedStatement statementInsert = con.prepareStatement(sqlInsert)) {
-                        statementInsert.setInt(1, 0); // 0 cuentas
-                        statementInsert.setInt(2, 1); // 1 usuario
-                        statementInsert.executeUpdate();
-                        nuevoTotalUsuarios = 1; // Retorna 1 porque ahora hay un usuario
-                    }
-                } else {
-                    // Si ya hay usuarios, se actualiza la cantidad de usuarios
-                    nuevoTotalUsuarios = cantUsuarios + 1; // Calcula el nuevo total
-                    try (PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
-                        statementUpdate.setInt(1, nuevoTotalUsuarios);
-                        statementUpdate.executeUpdate();
-                    }
-                }
-            } else {
-                // Si no hay registros en la tabla, insertamos el primer registro
-                try (PreparedStatement statementInsert = con.prepareStatement(sqlInsert)) {
-                    statementInsert.setInt(1, 0); // 0 cuentas
-                    statementInsert.setInt(2, 1); // 1 usuario
-                    statementInsert.executeUpdate();
-                    nuevoTotalUsuarios = 1; // Retorna 1 porque ahora hay un usuario
+                // Actualiza el valor de la columna 2
+                try (PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
+                    statementUpdate.setInt(1, sumaColumna2); // Establece el nuevo valor
+                    statementUpdate.executeUpdate();
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return nuevoTotalUsuarios; // Retorna el nuevo total de usuarios
-    }
+        return sumaColumna2; // Retorna la suma total de la columna 2
+    }  
+    
     
     public static int numCuentasCreadas(){
     
@@ -98,37 +80,28 @@ public class BasesDatos {
         String sqlSelect = "SELECT * FROM informacionGeneral";
         String sqlUpdate = "UPDATE informacionGeneral SET cantCuentas = ?";
 
-        int nuevoTotalCuentas = 0;
+        int sumaColumna1 = 0;
 
         try (Connection con = base_disenio.getConnection();
              PreparedStatement statementSelect = con.prepareStatement(sqlSelect);
              ResultSet resultSet = statementSelect.executeQuery()) {
 
-            if (resultSet.next()) { // Verifica si hay resultados
-                int cantCuentas = resultSet.getInt("cantCuentas");
+            if (resultSet.next()) { // Verifica si hay un registro
+                int valorColumna1 = resultSet.getInt(1); // Obtiene el valor de la columna 1
+                sumaColumna1 = valorColumna1 + 1; // Suma 1 al valor de la columna 1
 
-                // Incrementa la cantidad de cuentas
-                nuevoTotalCuentas = cantCuentas + 1; // Calcula el nuevo total
+                // Actualiza el valor de la columna 1
                 try (PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
-                    statementUpdate.setInt(1, nuevoTotalCuentas);
+                    statementUpdate.setInt(1, sumaColumna1); // Establece el nuevo valor
                     statementUpdate.executeUpdate();
-                }
-            } else {
-                // Si no hay registros en la tabla, insertamos el primer registro
-                try (PreparedStatement statementInsert = con.prepareStatement("INSERT INTO informacionGeneral (cantCuentas, cantUsuarios) VALUES (?, ?)")) {
-                    statementInsert.setInt(1, 1); // 1 cuenta
-                    statementInsert.setInt(2, 0); // 0 usuarios
-                    statementInsert.executeUpdate();
-                    nuevoTotalCuentas = 1; // Retorna 1 porque ahora hay una cuenta
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return nuevoTotalCuentas; // Retorna el nuevo total de cuentas
+        return sumaColumna1; // Retorna la suma total de la columna 1
     }    
-    
     
     
     

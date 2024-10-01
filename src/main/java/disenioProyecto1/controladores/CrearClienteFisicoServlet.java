@@ -28,11 +28,9 @@ import java.util.logging.Logger;
 
 @WebServlet("/CrearClienteFisicoServlet")
 public class CrearClienteFisicoServlet extends HttpServlet {
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         // Recuperar los parámetros del formulario
         String nombre = request.getParameter("nombre");
         String categoria = request.getParameter("categoria");
@@ -41,19 +39,16 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         String identificacion = request.getParameter("identificacion");
         String maxCuentas = request.getParameter("maxCuentas");
         String fechaNacimiento = request.getParameter("fechaNacimiento");
-
         // Validar y procesar la solicitud
         String mensajeDeError = validarDatos(nombre, email, telefono);
         if (mensajeDeError != null) {
             manejarError(request, response, mensajeDeError);
             return;
         }
-
         int[] valoresInt = convertirValoresEnteros(telefono, identificacion, maxCuentas, request, response);
         if (valoresInt == null) {
             return; // Se maneja el error dentro de la función
-        }
-        
+        }        
         boolean ClienteNoExiste = false;
         try {
             ClienteNoExiste = validarNuevoCFisico(valoresInt[1]);
@@ -61,16 +56,13 @@ public class CrearClienteFisicoServlet extends HttpServlet {
             Logger.getLogger(CrearClienteFisicoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (ClienteNoExiste){
-            String codigoCliente = generarCodigoCliente();   
-            
+            String codigoCliente = generarCodigoCliente();               
             CFisico obj = new CFisico(valoresInt[0], email, nombre, valoresInt[1], fechaNacimiento, valoresInt[2], codigoCliente);
             delegarCrearCFisico(obj);
             prepararConfirmacion(request, nombre, telefono, email, identificacion, maxCuentas, fechaNacimiento);
             request.getRequestDispatcher("/confirmacionClienteFisico.jsp").forward(request, response);
-        }   
-        
+        }    
     }
-
     private String validarDatos(String nombre, String email, String telefono) {
         if (nombre == null || nombre.isEmpty()) {
             return "El nombre es obligatorio.";
@@ -81,13 +73,11 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         }
         return null; // Todo es válido
     }
-
     private void manejarError(HttpServletRequest request, HttpServletResponse response, String mensajeDeError)
             throws ServletException, IOException {
         request.setAttribute("mensajeDeError", mensajeDeError);
         request.getRequestDispatcher("/error.jsp").forward(request, response);
     }
-
     private int[] convertirValoresEnteros(String telefono, String identificacion, String maxCuentas, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int telefonoInt, identificacionInt, maxCuentasInt;
         try {
@@ -102,7 +92,6 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         }
         return new int[]{telefonoInt, identificacionInt, maxCuentasInt}; // Retorna los valores como un arreglo
     }
-
     private void prepararConfirmacion(HttpServletRequest request, String nombre, String telefono, String email,
             String identificacion, String maxCuentas, String fechaNacimiento) {
         request.setAttribute("nombre", nombre);
