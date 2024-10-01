@@ -59,23 +59,33 @@ public class ValidacionesCuentas {
     }
 
     private static String existeCJuridico(String cedula) throws SQLException {
-        long cedulaJuridicaLong = Long.parseLong(cedula.trim());
-        ArrayList<CJuridico> listaClienteJuridico = obtenerListaClientesJuridicos();
-        for (CJuridico cliente : listaClienteJuridico) {            
-            if (cliente.identificacion == cedulaJuridicaLong) {
-                return cliente.nombre;
+        try {
+            long cedulaJuridicaLong = Long.parseLong(cedula);
+            ArrayList<CJuridico> listaClienteJuridico = obtenerListaClientesJuridicos();
+            for (CJuridico cliente : listaClienteJuridico) {            
+                if (cliente.identificacion == cedulaJuridicaLong) {
+                    return cliente.nombre;
+                }
             }
+        } catch (NumberFormatException e) {
+            // Maneja el caso en que la cédula no sea un número válido
+            return "noHay";
         }
         return "noHay";        
     }
 
     private static String existeCFisico(String cedula) throws SQLException {
-        ArrayList<CFisico> listaClienteFisico = obtenerListaClientesFisicos();  
-        long cedulaFisicaLong = Long.parseLong(cedula.trim());
-        for (CFisico cliente : listaClienteFisico) {
-            if (cliente.identificacion == cedulaFisicaLong) {               
-                return cliente.nombre;  
+        try {
+            long cedulaFisicaLong = Long.parseLong(cedula.trim());
+            ArrayList<CFisico> listaClienteFisico = obtenerListaClientesFisicos();  
+            for (CFisico cliente : listaClienteFisico) {
+                if (cliente.identificacion == cedulaFisicaLong) {               
+                    return cliente.nombre;  
+                }
             }
+        } catch (NumberFormatException e) {
+            // Maneja el caso en que la cédula no sea un número válido
+            return "noHay";
         }
         return "noHay";   
     }

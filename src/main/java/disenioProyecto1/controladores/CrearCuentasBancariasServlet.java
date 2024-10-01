@@ -1,11 +1,13 @@
 package disenioProyecto1.controladores;
 
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.insertarDatosCBancaria;
 import disenioProyecto1.gestorBanco.CuentaBancaria;
 import static disenioProyecto1.gestorBanco.CuentaBancaria.obtenerFechaActual;
 import static disenioProyecto1.gestorBanco.GestionBanco.generarCodigoCuentaBancaria;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.*;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarSiExisteCliente;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@WebServlet(name = "CrearCuentasBancariasServlet", urlPatterns = {"/CrearCuentasBancariasServlet"})
+@WebServlet("/CrearCuentasBancariasServlet")
 public class CrearCuentasBancariasServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -55,28 +57,51 @@ public class CrearCuentasBancariasServlet extends HttpServlet {
     }
 
 
-    private void procesarRegistroCuenta(String identidad, String pin, String montoInicial, HttpServletRequest request, HttpServletResponse response) {
+    private void procesarRegistroCuenta(String cedula, String pin, String montoInicial, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int montoInt = Integer.parseInt(montoInicial);
             var pinEncriptado = encriptarPIN(pin);
-            String nombreCliente = validarSiExisteCliente();
-            if (nombreCliente != "noHay"){
+            
+            System.out.println("antes de llamar a listas");
+            String nombreCliente = validarSiExisteCliente(cedula);
+            System.out.println("desúes de llamar a listas");
+
+            if (!nombreCliente.equals("noHay")) {
                 String numeroCuenta = generarCodigoCuentaBancaria();
-                CuentaBancaria obj = new CuentaBancaria(identidad, pinEncriptado, montoInt, 0, 0, true, obtenerFechaActual(), numeroCuenta);
-                // base de datos
-                response.sendRedirect("confirmacionCuenta.jsp");   // Redirigir a la página de confirmación
-            }else{
-                request.setAttribute("errorMessage", "Hubieron problemas de conexion");                        
+                CuentaBancaria obj = new CuentaBancaria(convertirStringALong(cedula), pinEncriptado, montoInt, 0, 0, true, obtenerFechaActual(), numeroCuenta, nombreCliente);
+                if (insertarDatosCBancaria(obj)){
+                    request.setAttribute("cuentaBancaria", obj);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("confirmacionCuenta.jsp");
+                    dispatcher.forward(request, response); 
+                    }else{ 
+                    request.setAttribute("mensajeDeError", "Hubo un error");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("errorCrearCuenta.jsp");
+                    dispatcher.forward(request, response); 
+              
+                }
+            } else {
+                request.setAttribute("mensajeDeError", "No existe usuario para asignarle la cuenta");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("errorCrearCuenta.jsp");
+                dispatcher.forward(request, response);                        
             }
+        } catch (NumberFormatException e) {
+            Logger.getLogger(CrearCuentasBancariasServlet.class.getName()).log(Level.SEVERE, "Error al parsear el monto inicial", e);
+            request.setAttribute("errorMessage", "El monto inicial debe ser un número válido");
+            request.getRequestDispatcher("crearCuenta.jsp").forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CrearCuentasBancariasServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("errorMessage", "Hubieron problemas de conexion");
-            try {
-                request.getRequestDispatcher("crearCuenta.jsp").forward(request, response);
-            } catch (ServletException | IOException e) {
-                Logger.getLogger(CrearCuentasBancariasServlet.class.getName()).log(Level.SEVERE, null, e);
-            }
+            Logger.getLogger(CrearCuentasBancariasServlet.class.getName()).log(Level.SEVERE, "Hubieron problemas de conexión", ex);
+            request.setAttribute("errorMessage", "Hubieron problemas de conexión");
+            request.getRequestDispatcher("crearCuenta.jsp").forward(request, response);
         }
     }
+    public long convertirStringALong(String cadena) {
+        try {
+            return Long.parseLong(cadena);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: La cadena no es un número válido.");
+            e.printStackTrace(); // O puedes manejar el error de otra manera
+            return -1; // Devuelve un valor por defecto en caso de error
+        }
+}
 
 }

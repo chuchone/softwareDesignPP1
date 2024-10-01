@@ -22,18 +22,18 @@ import java.util.Date;
 
 
 public class CuentaBancaria {
-    public String cedulaPersonaAsociada;
+    public long cedulaPersonaAsociada;
     public String fechaCreacion;
     public boolean statusCuentaActiva;
     public String PIN_Asociado;
     public double dineroEnLaCuenta;
     private static List<Transaccion> transacciones = new ArrayList<>();
     public double regisComisiones;
-    public int cantidadRetiros;
+    public double cantidadRetiros;
     public String numeroCuenta;
+    public String nombreDuenio;
     
-    public CuentaBancaria(String cedulaPersonaAsociada, String PIN_Asociado, int depocitoInicial, double regisComisiones, int cantRetiros, boolean status, String fechaCreacion, String numeroCuenta) { //verificar en documento PIN ASOCIADO
-
+    public CuentaBancaria(long cedulaPersonaAsociada, String PIN_Asociado, int depocitoInicial, double regisComisiones, double cantRetiros, boolean status, String fechaCreacion, String numeroCuenta, String nombreDuenio) { //verificar en documento PIN ASOCIADO
         this.cedulaPersonaAsociada = cedulaPersonaAsociada;
         this.PIN_Asociado = PIN_Asociado;
         this.fechaCreacion = fechaCreacion;
@@ -42,6 +42,7 @@ public class CuentaBancaria {
         this.regisComisiones = regisComisiones;
         this.cantidadRetiros = cantRetiros;
         this.numeroCuenta = numeroCuenta;
+        this.nombreDuenio = nombreDuenio;
     }
 
     public void depositar(double cant){
@@ -94,7 +95,7 @@ public class CuentaBancaria {
         transacciones.add(registroTransaccion);
     }
     private Transaccion generarRegistro(double cant, String tipo, double comision, double dineroEnLaCuenta){
-        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, cedulaPersonaAsociada);
+        return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, numeroCuenta);
     }
 }
 

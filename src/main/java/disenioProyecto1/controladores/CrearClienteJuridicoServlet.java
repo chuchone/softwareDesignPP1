@@ -40,8 +40,6 @@ public class CrearClienteJuridicoServlet extends HttpServlet {
         
         try {
             realizarValidaciones(nombre, categoria, telefono, email, tipoNegocio, cedulaJuridica, razonSocial);
-            System.out.println(telefono);
-            System.out.println(cedulaJuridica);
             int telefonoInt = Integer.parseInt(telefono.trim());
             long cedulaJuridicaLong = Long.parseLong(cedulaJuridica.trim());
 

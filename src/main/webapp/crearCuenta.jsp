@@ -97,7 +97,7 @@
         <h1>Crear Cuenta</h1>
     </header>
 
-    <form action="confirmacionCuenta.jsp" method="post" onsubmit="return validarFormulario()">
+    <form action="CrearCuentasBancariasServlet" method="post">
         <label for="identidad">Identidad del Cliente (Cédula Física o Jurídica):</label>
         <input type="text" id="identidad" name="identidad" required>
 

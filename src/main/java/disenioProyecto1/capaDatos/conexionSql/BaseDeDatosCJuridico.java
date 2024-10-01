@@ -39,7 +39,7 @@ public class BaseDeDatosCJuridico {
                 String cuenta = resultSet.getString("cuenta");
                 String nombre = resultSet.getString("nombre");
                 String correo = resultSet.getString("correo");
-                long identificacion = resultSet.getInt("identificacion"); // Cedula jurídica para clientes jurídicos
+                long identificacion = resultSet.getLong("identificacion"); // Cedula jurídica para clientes jurídicos
                 String tipoUsuario = resultSet.getString("tipoUsuario");
                 int maxCuentas = resultSet.getInt("maxCuentas");
                 String razonSocial = resultSet.getString("razonSocial"); // Razón social en lugar de nombre

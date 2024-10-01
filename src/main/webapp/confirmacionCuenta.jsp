@@ -4,6 +4,7 @@
     Author     : Nelson
 --%>
 
+<%@page import="disenioProyecto1.gestorBanco.CuentaBancaria"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,11 +48,22 @@
     </header>
 
     <div class="container">
-        <p><strong>Número de Cuenta:</strong> CTA12345</p> <!-- Puedes generar el número de cuenta dinámicamente -->
-        <p><strong>Estatus de la Cuenta:</strong> Activa</p>
-        <p><strong>Saldo Actual:</strong> <%= request.getParameter("montoInicial") %>.00</p>
-        <p><strong>Tipo de Cliente:</strong> Jurídico/Físico (Este dato se puede recuperar dinámicamente)</p>
-        <p><strong>Nombre del Dueño o Apoderado Generalísimo:</strong> Juan Pérez</p> <!-- Este dato también puede venir de la lógica backend -->
+        <%
+            CuentaBancaria cuenta = (CuentaBancaria) request.getAttribute("cuentaBancaria");
+            if (cuenta != null) {
+        %>
+            <p><strong>Número de Cuenta:</strong> <%= cuenta.numeroCuenta %></p>
+            <p><strong>Estatus de la Cuenta:</strong> <%= cuenta.statusCuentaActiva? "Activa" : "Inactiva" %></p>
+            <p><strong>Saldo Actual:</strong> <%= cuenta.dineroEnLaCuenta %>.00</p>
+            <p><strong>Fecha de creacion:</strong> <%= cuenta.fechaCreacion %></p>
+            <p><strong>Nombre del Dueño o Apoderado Generalísimo:</strong> <%= cuenta.nombreDuenio %></p>
+        <%
+            } else {
+        %>
+            <p>No se encontró información de la cuenta.</p>
+        <%
+            }
+        %>
     </div>
 </body>
 </html>
