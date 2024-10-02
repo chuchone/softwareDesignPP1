@@ -6,7 +6,9 @@ package disenioProyecto1.capaDatos.conexionSql;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.insertarDatosCFisico;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
 import disenioProyecto1.usuarios.CFisico;
+import disenioProyecto1.usuarios.CJuridico;
 import java.sql.Connection;  
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -129,6 +131,38 @@ public class BasesDatos {
         } else {
             throw new SQLException("No se pudo establecer la conexión");
         }
+    }
+    
+    
+    private static long recorrerJuridicosRCedula(ArrayList<CJuridico> listaJuridicos, long cedula){
+    
+        for (CJuridico cliente : listaJuridicos){
+            if (cedula == cliente.identificacion){
+                return cliente.telefono;
+            }            
+        }
+        return 0;    
+    }
+    
+    private static long recorrerFisicosRCedula(ArrayList<CFisico> listaFisico,long cedula){
+        for (CFisico cliente : listaFisico){
+            if (cedula == cliente.identificacion){
+                return cliente.telefono;
+            }            
+        }
+        return 0;
+    }
+    public static long obtenerNumeroTelefono (long cedula) throws SQLException{
+        ArrayList<CJuridico> listaJuridicos = obtenerListaClientesJuridicos();
+        ArrayList<CFisico> listaFisico = obtenerListaClientesFisicos();
+        long num = recorrerJuridicosRCedula(listaJuridicos, cedula);
+        long num2 = recorrerFisicosRCedula(listaFisico, cedula);
+        if (num != 0){
+            return num;
+        }else if(num2 != 0){
+            return num2;
+        }
+        return 0;
     }
         
             

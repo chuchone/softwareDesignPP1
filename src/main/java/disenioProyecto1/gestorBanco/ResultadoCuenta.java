@@ -63,9 +63,28 @@ public class ResultadoCuenta {
             }
         }
 
-
         // Si no se encuentra la cuenta
         return new ResultadoCuenta(0.0, 0.0, false);
-    }    
+    } 
+    public static boolean existeCuentaYPin(String numCuenta,String pinCif) throws SQLException{
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for (CuentaBancaria cuenta : listaCuentas) {
+            if(cuenta.numeroCuenta.equals(cuenta) && cuenta.PIN_Asociado.equals(pinCif)){
+                return true;
+            }
+        }
+        return false;
+    
+    }
+    public static long existeCuenta(String numCuenta) throws SQLException{
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for (CuentaBancaria cuenta : listaCuentas) {
+            if(cuenta.numeroCuenta.equals(cuenta)){
+                return cuenta.cedulaPersonaAsociada;
+            }        
+        }
+        return 0;
+    
+    }
 }
 

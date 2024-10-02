@@ -44,16 +44,13 @@ public class CambiarPINServlet extends HttpServlet {
             // Lógica para cambiar el PIN
             boolean cambioValido = actualizarPinCuenta(encriptarPIN(nuevoPin), cuenta, encriptarPIN(pinActual));
             if (cambioValido) {
-                // Redirigir a la página de confirmación si el cambio fue exitoso
                 request.getRequestDispatcher("/confirmacionCambiarPin.jsp").forward(request, response);
             } else {
-                // Redirigir de vuelta a la página de cambiar PIN con error
                 request.setAttribute("error", "Datos incorrectos.");
                 request.getRequestDispatcher("cambiarPin.jsp").forward(request, response);            
             }
         } catch (SQLException ex) {
             Logger.getLogger(CambiarPINServlet.class.getName()).log(Level.SEVERE, null, ex);
-            // En caso de error en la base de datos, redirigir a la página de error
             request.getRequestDispatcher("/errorCambiarPin.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(CambiarPINServlet.class.getName()).log(Level.SEVERE, null, ex);

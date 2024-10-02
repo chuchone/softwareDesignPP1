@@ -66,9 +66,11 @@
 
     <div class="container">
         <a href="consultarTransacciones.jsp" class="consult-option">Consultar Transacciones</a>
-        <a href="consultarTipoCambioCompra.jsp" class="consult-option">Consultar Tipo de Cambio (Compra)</a>
-        <a href="consultarTipoCambioVenta.jsp" class="consult-option">Consultar Tipo de Cambio (Venta)</a>
+        <a href="MostrarTipoCambioCompra" class="consult-option">Consultar Tipo de Cambio (Compra)</a>
+        <a href="MostrarTipoCambioVenta" class="consult-option">Consultar Tipo de Cambio (Venta)</a>
         <a href="consultarSaldoActual.jsp" class="consult-option">Consultar Saldo Actual</a>
+        <a href="consultarStatus.jsp" class="consult-option">Consultar estatus de la cuenta</a>
+
         <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </div>
 </body>

@@ -70,7 +70,7 @@
         <a href="depositoCambioMoneda.jsp" class="banking-option">Depósito con Cambio de Moneda</a>
         <a href="retiroColones.jsp" class="banking-option">Retiro en Colones</a>
         <a href="retiroCompraMoneda.jsp" class="banking-option">Retiro con Compra de Moneda</a>
-        <a href="transferencia.jsp" class="banking-option">Transferencia</a>
+        <a href="TransferenciaLocalUnSoloDuenio.jsp" class="banking-option">Transferir a un mismo dueño</a>
         <a href="index.jsp" class="banking-option">Volver al Inicio</a>
     </div>
 </body>

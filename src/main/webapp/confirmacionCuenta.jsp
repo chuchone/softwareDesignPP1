@@ -40,6 +40,20 @@
             font-size: 1.2em;
             margin-bottom: 10px;
         }
+        .client-option {
+            display: inline-block;
+            background-color: #66b3ff;
+            color: white;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+        .client-option:hover {
+            background-color: #0066cc;
+        }
     </style>
 </head>
 <body>
@@ -53,10 +67,11 @@
             if (cuenta != null) {
         %>
             <p><strong>Número de Cuenta:</strong> <%= cuenta.numeroCuenta %></p>
-            <p><strong>Estatus de la Cuenta:</strong> <%= cuenta.statusCuentaActiva? "Activa" : "Inactiva" %></p>
+            <p><strong>Estatus de la Cuenta:</strong> <%= cuenta.statusCuentaActiva ? "Activa" : "Inactiva" %></p>
             <p><strong>Saldo Actual:</strong> <%= cuenta.dineroEnLaCuenta %>.00</p>
-            <p><strong>Fecha de creacion:</strong> <%= cuenta.fechaCreacion %></p>
+            <p><strong>Fecha de creación:</strong> <%= cuenta.fechaCreacion %></p>
             <p><strong>Nombre del Dueño o Apoderado Generalísimo:</strong> <%= cuenta.nombreDuenio %></p>
+            <a href="index.jsp" class="client-option">Volver al Inicio</a>
         <%
             } else {
         %>
