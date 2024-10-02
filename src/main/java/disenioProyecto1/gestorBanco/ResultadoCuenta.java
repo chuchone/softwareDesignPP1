@@ -38,18 +38,34 @@ public class ResultadoCuenta {
     }
     
     public static ResultadoCuenta existeCuentaBancariaDep(String numCuenta, double cantidadDepositar) throws SQLException {
-    List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
-    for (CuentaBancaria cuenta : listaCuentas) {
-        if (cuenta.numeroCuenta.equals(numCuenta)) {
-            cuenta.depositar(cantidadDepositar);
-            limpiarTablaCuentas();
-            boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
-            return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for (CuentaBancaria cuenta : listaCuentas) {
+            if (cuenta.numeroCuenta.equals(numCuenta)) {
+                cuenta.depositar(cantidadDepositar);
+                limpiarTablaCuentas();
+                boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
+                return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
+            }
         }
+
+
+        // Si no se encuentra la cuenta
+        return new ResultadoCuenta(0.0, 0.0, false);
     }
-    
-    // Si no se encuentra la cuenta
-    return new ResultadoCuenta(0.0, 0.0, false);
-}
+    public static ResultadoCuenta existeCuentaBancariaRet(String numCuenta, double cantidadRetirar, String pin) throws SQLException {
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for (CuentaBancaria cuenta : listaCuentas) {
+            if (cuenta.numeroCuenta.equals(numCuenta) && cuenta.PIN_Asociado.equals(pin)) {
+                cuenta.retirar(cantidadRetirar);
+                limpiarTablaCuentas();
+                boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
+                return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
+            }
+        }
+
+
+        // Si no se encuentra la cuenta
+        return new ResultadoCuenta(0.0, 0.0, false);
+    }    
 }
 

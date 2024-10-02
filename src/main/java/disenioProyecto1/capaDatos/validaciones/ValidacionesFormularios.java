@@ -52,10 +52,4 @@ public class ValidacionesFormularios {
         return true;
     }
     
-    
-    public static boolean validarIdentificacion(String identificacion){
-    
-       // GestionBa
-       return true;
-    }
 }

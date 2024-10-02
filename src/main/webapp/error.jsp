@@ -62,6 +62,6 @@
     <div class="error-message">
         <p><%= request.getAttribute("mensajeDeError") %></p>
     </div>
-    <a href="crearClienteFisico.jsp" class="button">Volver al formulario</a>
+    <a href="index.jsp" class="button">Volver al inicio</a>
 </body>
 </html>
