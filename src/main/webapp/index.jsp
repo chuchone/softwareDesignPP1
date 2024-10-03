@@ -73,7 +73,7 @@
         <a href="gestionarCuentas.jsp" class="menu-item">Gestión de Cuentas</a>
         <a href="operacionesBancarias.jsp" class="menu-item">Operaciones Bancarias</a>
         <a href="consultas.jsp" class="menu-item">Consultas</a>
-        <a href="logout.jsp" class="menu-item">Salir</a>
+        <a href="salir.jsp" class="menu-item">Informacion del desarrollo</a>
     </div>
 </body>
 </html>

@@ -45,7 +45,7 @@ public class EliminarCuentaServlet extends HttpServlet {
             eliminarElemento(numeroCuenta, encriptarPIN(pin), listaCuentas);
             request.setAttribute("numeroCuenta", numeroCuenta);
             // Redirigir a la página de confirmación
-            request.getRequestDispatcher("confirmacion.jsp").forward(request, response);
+            request.getRequestDispatcher("confirmacionEliminacionCuenta.jsp").forward(request, response);
 
         } catch (SQLException ex) {
             Logger.getLogger(EliminarCuentaServlet.class.getName()).log(Level.SEVERE, null, ex);
