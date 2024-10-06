@@ -94,7 +94,7 @@
             <input type="number" id="montoDeposito" name="montoDeposito">
             
             <input type="submit" value="Realizar Depósito">
-            <a href="operacionesBancarias.jsp" class="client-option">Volver al Inicio</a>
+            <a href="index.jsp" class="client-option">Volver al Inicio</a>
             <div id="error" class="error"></div>
         </form>
     </div>

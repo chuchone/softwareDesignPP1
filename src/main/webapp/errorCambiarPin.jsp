@@ -51,6 +51,7 @@
         <p>Ha ocurrido un problema al intentar cambiar su PIN. Por favor, inténtelo de nuevo.</p>
         <form action="cambiarPin.jsp" method="get">
             <button type="submit">Volver a intentar</button>
+            <a href="index.jsp" class="consult-option">Volver al Inicio</a>
         </form>
     </div>
 </body>

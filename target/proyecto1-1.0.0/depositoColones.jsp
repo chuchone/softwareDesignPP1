@@ -103,6 +103,7 @@
         <input type="text" id="montoDeposito" name="montoDeposito" required>
 
         <input type="submit" value="Realizar Depósito">
+        <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </form>
 </body>
 </html>

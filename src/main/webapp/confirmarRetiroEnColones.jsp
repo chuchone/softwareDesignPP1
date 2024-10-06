@@ -68,10 +68,10 @@
     </header>
     <div class="container">
         <div class="confirmation-box">
-            <p>El retiro de <strong>₡<%= request.getAttribute("montoRetirado") != null ? String.format("%,.2f", (Double) request.getAttribute("montoRetirado")) : "0.00" %></strong> ha sido procesado exitosamente.</p>
+            <p>El retiro de <strong>₡<%= request.getAttribute("montoRetirado") != null ? String.format("%,.2f", (Double) request.getAttribute("montoRetirado")) : "0.00" %></strong> se hizo correctamente</p>
             <p>Suma de comisiones: <strong>₡<%= request.getAttribute("montoComision") != null ? String.format("%,.2f", (Double) request.getAttribute("montoComision")) : "0.00" %></strong></p>
             <p>Número de Cuenta: <strong><%= request.getAttribute("numeroCuenta") != null ? request.getAttribute("numeroCuenta") : "No disponible" %></strong></p>
-            <a href="operacionesBancarias.jsp" class="back-button">Volver a Operaciones</a>
+            <a href="index.jsp" class="back-button">Ir al menú de inicio</a>
         </div>
     </div>
 </body>

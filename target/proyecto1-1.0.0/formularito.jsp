@@ -17,6 +17,7 @@
         <input type="text" id="codigo" name="codigo" required>
         <br><br>
         <input type="submit" value="Confirmar">
+        <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </form>
 </body>
 </html>

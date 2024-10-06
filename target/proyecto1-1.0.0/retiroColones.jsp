@@ -100,7 +100,7 @@
             </div>
             <button type="submit" class="submit-button">Realizar Retiro</button>
         </form>
-        <a href="operacionesBancarias.jsp" class="back-button">Volver a Operaciones</a>
+        <a href="index.jsp" class="back-button">Volver a iniicio</a>
     </div>
 </body>
 </html>

@@ -64,5 +64,6 @@
         <p><%= request.getAttribute("mensajeDeError") %></p>
     </div>
     <a href="crearCuenta.jsp" class="button">Volver al formulario</a>
+    <a href="index.jsp" class="consult-option">Volver al Inicio</a>
 </body>
 </html>

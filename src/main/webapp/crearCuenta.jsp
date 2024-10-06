@@ -108,6 +108,7 @@
         <input type="text" id="montoInicial" name="montoInicial" required>
 
         <input type="submit" value="Crear Cuenta">
+        <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </form>
 </body>
 </html>

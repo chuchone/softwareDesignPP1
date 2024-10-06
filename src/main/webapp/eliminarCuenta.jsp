@@ -65,6 +65,7 @@
                 <input type="password" id="pin" name="pin" required>
             </div>
             <button type="submit" class="btn">Verificar</button>
+             <a href="index.jsp" class="consult-option">Volver al Inicio</a>
         </form>
     </div>
 </body>

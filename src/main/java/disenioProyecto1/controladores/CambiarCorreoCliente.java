@@ -4,84 +4,118 @@
  */
 package disenioProyecto1.controladores;
 
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.limpiarTablaCfisico;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.insertarClienteJuridico;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.limpiarTablaCJuridico;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
+import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
+import disenioProyecto1.usuarios.CFisico;
+import disenioProyecto1.usuarios.CJuridico;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.SQLException;
+import java.util.List;
+
 
 /**
  *
  * @author Nelson
  */
-@WebServlet(name = "CambiarCorreoCliente", urlPatterns = {"/CambiarCorreoCliente"})
+@WebServlet("/CambiarCorreoCliente")
 public class CambiarCorreoCliente extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CambiarCorreoCliente</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CambiarCorreoCliente at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Obtener los parámetros del formulario
+        String identificacion = request.getParameter("identidad");
+        String nuevoCorreo = request.getParameter("nuevoCorreo");
+
+        long cedula = Long.parseLong(identificacion);
+
+        try {
+            boolean esFisico = existeCFisico(cedula);
+            boolean esJuridico = existeCJuridico(cedula);
+            String correoAnterior = "";
+
+            if (esFisico) {
+                String nombre = "Desconocido";
+                List<CFisico> listaCFisicos = obtenerListaClientesFisicos();
+                for (CFisico cliente : listaCFisicos) {
+                    if (cliente.identificacion == cedula) {
+                        nombre = cliente.nombre;
+                        correoAnterior = cliente.correo;
+                        cliente.correo = nuevoCorreo;  // Cambiar el correo electrónico
+                    }
+                }
+                limpiarTablaCfisico();
+                for (CFisico cliente : listaCFisicos) {
+                    delegarCrearCFisico(cliente);
+                }
+                request.setAttribute("nombre", nombre);
+                request.setAttribute("correoAnterior", correoAnterior);
+                request.setAttribute("correo", nuevoCorreo);
+                request.getRequestDispatcher("resultadoCambioCorreo.jsp").forward(request, response);
+            } else if (esJuridico) {
+                String nombre = "Desconocido";
+                List<CJuridico> listaCJuridico = obtenerListaClientesJuridicos();
+                for (CJuridico cliente : listaCJuridico) {
+                    if (cliente.identificacion == cedula) {
+                        correoAnterior = cliente.correo;
+                        nombre = cliente.nombre;
+                        cliente.correo = nuevoCorreo;  // Cambiar el correo electrónico
+                    }
+                }
+                limpiarTablaCJuridico();
+                for (CJuridico cliente : listaCJuridico) {
+                    insertarClienteJuridico(cliente);
+                }
+                request.setAttribute("nombre", nombre);
+                request.setAttribute("correoAnterior", correoAnterior);
+                request.setAttribute("correo", nuevoCorreo);
+                request.getRequestDispatcher("resultadoCambioCorreo.jsp").forward(request, response);
+
+            } else {
+                request.setAttribute("error", "Cliente no encontrado.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (SQLException e) {
+            request.setAttribute("error", "Ocurrió un error al acceder a la base de datos.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "El formato de la identificación es inválido.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        } catch (Exception e) {
+            request.setAttribute("error", "Ocurrió un error inesperado.");
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private static boolean existeCJuridico(long identificacion) throws SQLException {
+        List<CJuridico> listaCJuridico = obtenerListaClientesJuridicos();
+        for (CJuridico cliente : listaCJuridico) {
+            if (cliente.identificacion == identificacion) {
+                listaCJuridico.clear();
+                return true;
+            }
+        }
+        listaCJuridico.clear();
+        return false;
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private static boolean existeCFisico(long identificacion) throws SQLException {
+        List<CFisico> listaCFisicos = obtenerListaClientesFisicos();
+        for (CFisico cliente : listaCFisicos) {
+            if (cliente.identificacion == identificacion) {
+                listaCFisicos.clear();
+                return true;
+            }
+        }
+        listaCFisicos.clear();
+        return false;
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

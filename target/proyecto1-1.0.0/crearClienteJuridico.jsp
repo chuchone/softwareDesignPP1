@@ -95,6 +95,7 @@
         <input type="text" id="razonSocial" name="razonSocial" required>
 
         <input type="submit" value="Crear Cliente">
+         <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </form>
 </body>
 </html>

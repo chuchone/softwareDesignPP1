@@ -65,5 +65,6 @@
         <p><%= request.getAttribute("mensajeDeError") %></p>
     </div>
     <a href="crearClienteJuridico.jsp" class="button">Volver al formulario</a>
+    <a href="index.jsp" class="consult-option">Volver al Inicio</a>
 </body>
 </html>

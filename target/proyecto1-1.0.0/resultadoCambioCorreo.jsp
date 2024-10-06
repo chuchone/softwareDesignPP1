@@ -1,6 +1,6 @@
 <%-- 
-    Document   : resultadoCambioTelefono
-    Created on : 5 oct. 2024, 20:44:40
+    Document   : resultadoCambioCorreo
+    Created on : 6 oct. 2024, 02:31:01
     Author     : Nelson
 --%>
 
@@ -9,22 +9,23 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cambio de Teléfono Exitoso</title>
+    <title>Resultado del Cambio de Correo</title>
     <style>
         body {
-            background-color: #eef2f7;
+            background-color: #f4f4f9;
             font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
         .container {
             background-color: #fff;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
             text-align: center;
@@ -37,20 +38,18 @@
         p {
             font-size: 18px;
             color: #555;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         .info {
             font-weight: bold;
             color: #333;
         }
         a {
-            display: inline-block;
             background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 20px;
             font-size: 16px;
         }
         a:hover {
@@ -60,9 +59,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Cambio de Teléfono Exitoso</h1>
+        <h1>Cambio de Correo Exitoso</h1>
         <p>Estimado cliente: <span class="info">${nombre}</span>,</p>
-        <p>Usted ha cambiado el número de teléfono <span class="info">${telefonoAnterior}</span> por <span class="info">${telefono}</span>.</p>
+        <p>Usted ha cambiado la dirección de correo <span class="info">${correoAnterior}</span> por <span class="info">${correo}</span>.</p>
         <a href="index.jsp">Volver al Inicio</a>
     </div>
 </body>

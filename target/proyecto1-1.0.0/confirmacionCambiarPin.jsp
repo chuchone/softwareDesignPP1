@@ -49,7 +49,6 @@
     <div class="container">
         <p>Estimado cliente, le informamos que se ha cambiado satisfactoriamente el PIN de su cuenta.</p>
         <a href="index.jsp" class="account-option">Volver al Inicio</a>
-
     </div>
 </body>
 </html>

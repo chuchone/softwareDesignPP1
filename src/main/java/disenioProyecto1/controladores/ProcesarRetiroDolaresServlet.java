@@ -41,13 +41,13 @@ public class ProcesarRetiroDolaresServlet extends HttpServlet {
             double tipoCambio = obtenerTipoCambio("318");
             double montoEnColones = convertirDolaresAColones(monto, tipoCambio);
 
-            ResultadoCuenta informacionCuenta = existeCuentaBancariaRet(numeroCuenta, montoEnColones, pinEncriptado);
-            if (informacionCuenta.isExisteCuenta()){
+            boolean informacionCuenta = existeCuentaBancariaRet(numeroCuenta, montoEnColones, pinEncriptado);
+            if (informacionCuenta){
 
 
                 request.setAttribute("numeroCuenta", numeroCuenta);
                 request.setAttribute("montoDepositado", montoEnColones);
-                request.setAttribute("montoComision", informacionCuenta.getRegisComisiones());
+                //request.setAttribute("montoComision", informacionCuenta.getRegisComisiones());
                 
                 // Redirigir a la página de confirmación
                 request.getRequestDispatcher("confirmarRetiroEnColones.jsp").forward(request, response);

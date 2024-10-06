@@ -6,6 +6,7 @@ package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.insertarListaCuentasBancarias;
 import disenioProyecto1.gestorBanco.CuentaBancaria;
+import static disenioProyecto1.gestorBanco.GestionBanco.obtenerComisiones;
 import disenioProyecto1.gestorBanco.ResultadoCuenta;
 import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaRet;
 import java.io.IOException;
@@ -40,12 +41,14 @@ public class ProcesarRetiroColonesDespSMS extends HttpServlet {
                 return;
             }
             double cantidadARetirar = Double.parseDouble(montoRetiro);
-            ResultadoCuenta resultado = existeCuentaBancariaRet(numeroCuenta, cantidadARetirar, pinEncriptado);
-
-            if (resultado.isExisteCuenta()) {
-                    request.setAttribute("montoRetirado", montoRetiro);
-                     request.setAttribute("numeroCuenta", numeroCuenta);
-                request.getRequestDispatcher("confirmacionRetiroEnColones.jsp").forward(request, response);
+            boolean resultado = existeCuentaBancariaRet(numeroCuenta, cantidadARetirar, pinEncriptado);
+            double comisionesTotales = obtenerComisiones(numeroCuenta);
+            if (resultado) {
+                // agregar al request comision
+                request.setAttribute("montoRetirado", cantidadARetirar);
+                request.setAttribute("montoComision", comisionesTotales);
+                request.setAttribute("numeroCuenta", numeroCuenta);
+                request.getRequestDispatcher("confirmarRetiroEnColones.jsp").forward(request, response);
             } else {
                 redirigirError(request, response, "No se pudo realizar el retiro. Intente nuevamente.");
             }

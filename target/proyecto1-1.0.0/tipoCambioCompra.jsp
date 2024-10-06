@@ -70,7 +70,7 @@
     <div class="container">
         <div class="exchange-rate-box">
             <p>Tipo de Cambio Venta: <strong>₡<%= request.getAttribute("tipoCambioCompra") %></strong></p>
-            <a href="operacionesBancarias.jsp" class="back-button">Volver a Operaciones</a>
+            <a href="index.jsp" class="back-button">Volver al inicio</a>
         </div>
     </div>
 </body>

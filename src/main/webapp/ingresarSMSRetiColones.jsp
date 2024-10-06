@@ -56,7 +56,8 @@
             <input type="hidden" name="codigoSMS" value="${sessionScope.codigoSMS}">
             <input type="hidden" name="pinEncriptado" value="${sessionScope.pinEncriptado}">
             <input type="hidden" name="numeroCuenta" value="${sessionScope.numeroCuenta}">
-             <input type="hidden" name="montoRetiro" value="${sessionScope.montoRetiro}">
+            <input type="hidden" name="montoRetiro" value="${sessionScope.montoRetiro}">
+            <a href="index.jsp" class="consult-option">Volver al Inicio</a>
             <input type="submit" value="Enviar">
         </form>
         <form action="operacionesBancarias.jsp" method="get">

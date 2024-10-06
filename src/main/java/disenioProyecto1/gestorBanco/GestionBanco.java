@@ -9,7 +9,8 @@ package disenioProyecto1.gestorBanco;
  * @author Nelson
  */
 
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numClientesCreados;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numCuentasCreadas;
 import java.util.ArrayList;
@@ -30,11 +31,20 @@ public class GestionBanco {
     }
 
 
-    public static void agregarCuentaBasesDatos(CuentaBancaria obj)
-    {
+    public static double obtenerComisiones(String numeroCuenta) throws SQLException{
     
-    
-    
+        List<Transaccion> listaTransacciones = obtenerTransacciones();
+        double cantidad = 0;
+        for(Transaccion transaccion: listaTransacciones){
+        
+            if(transaccion.numCuentaQuePertenese.equals(numeroCuenta)){
+                cantidad = cantidad + transaccion.comision;
+            
+            }
+        
+        }
+        listaTransacciones.clear();
+        return cantidad;
     }
 
 
