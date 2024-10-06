@@ -22,12 +22,15 @@ public class SMSSender {
     private static final String API_TOKEN = "FUzfaqPjT7Wh-3OKwpsNpAAxO_onn2AbOl1QvUHFiFs7ON_Bod-n9tVK33SIWAUC";
     private static final String API_ENDPOINT = "https://gatewayapi.com/rest/mtsms";
 
-    public static String mandarMensaje (String numero){
+    public static String mandarMensaje(String numero) {
         String palabra = generarMensajeAleatorio(4);
         try {
             String sender = "ExampleSMS";
             String message = "Ingrese el codigo: " + palabra;
-            String recipient = numero; 
+
+            // Agregar el prefijo +506 al número
+            String recipient = "+506" + numero; 
+
             sendSMS(sender, message, recipient);
             return palabra;
         } catch (Exception e) {

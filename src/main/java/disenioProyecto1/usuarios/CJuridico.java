@@ -28,5 +28,6 @@ public class CJuridico extends Cliente {
         this.correo = correo;
 
     }
+    public void setTelefono (int nuevoTelefono){this.telefono = nuevoTelefono;}
 
 }

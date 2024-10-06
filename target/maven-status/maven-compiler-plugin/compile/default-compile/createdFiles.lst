@@ -13,6 +13,7 @@ disenioProyecto1\capaDatos\validaciones\ValidacionesFormularios.class
 GenerarEstadoCuentaServlet.class
 disenioProyecto1\capaDatos\conexionSql\BaseDeDatosRegistros.class
 disenioProyecto1\controladores\SaldoActualCambioServlet.class
+disenioProyecto1\controladores\ProcesarRetiroColonesDespSMS.class
 disenioProyecto1\capaDatos\conexionSql\BaseDeDatosCFisico.class
 disenioProyecto1\controladores\CrearClienteFisicoServlet.class
 disenioProyecto1\controladores\ConsultarStatusServlet.class
@@ -34,8 +35,8 @@ disenioProyecto1\capaDatos\conexionSql\BaseDeDatosCuentaBancaria.class
 disenioProyecto1\controladores\SaldoActualServlet.class
 disenioProyecto1\capaDatos\validaciones\ValidarNuevosUsuarios.class
 disenioProyecto1\capaDatos\validaciones\ValidacionesInternas.class
+disenioProyecto1\controladores\CambiarTelefonoServlet.class
 disenioProyecto1\controladores\MostrarTipoCambioCompra.class
-disenioProyecto1\controladores\CambiarTelefonoCliente.class
 disenioProyecto1\gestorBanco\ResultadoCuenta.class
 disenioProyecto1\gestorBanco\GestionBanco.class
 disenioProyecto1\controladores\ProcesarRetiroColonesServlet.class

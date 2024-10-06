@@ -9,7 +9,11 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtene
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.insertarListaCuentasBancarias;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.limpiarTablaCuentas;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.eliminarTablaRegistros;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.insertarDatosCBancaria;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
 import disenioProyecto1.gestorBanco.CuentaBancaria;
+import disenioProyecto1.gestorBanco.Transaccion;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import disenioProyecto1.usuarios.CFisico;
 import disenioProyecto1.usuarios.CJuridico;
@@ -66,6 +70,20 @@ public class EliminarCuentaServlet extends HttpServlet {
                 break; 
             }
         }
+        List<Transaccion> listaTransacciones = obtenerTransacciones();
+        Iterator<Transaccion> transaccionIterator = listaTransacciones.iterator();
+
+        while (transaccionIterator.hasNext()) {
+            Transaccion obj = transaccionIterator.next(); // Obtiene el siguiente objeto
+            if (obj.numCuentaQuePertenese.equals(numCuenta)) {
+                transaccionIterator.remove(); // Elimina el objeto de la lista
+            }
+        }
+        eliminarTablaRegistros();
+        for (Transaccion transaccion : listaTransacciones) {
+            insertarDatosCBancaria(transaccion); // Insertar cada transacción nuevamente
+        }
+   
     }
 
 }

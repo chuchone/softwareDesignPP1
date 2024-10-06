@@ -28,6 +28,8 @@ public class CFisico extends Cliente {
         
         
     }
+    public void setTelefono (int nuevoTelefono){this.telefono = nuevoTelefono;}
+
     public String getfechaNacimiento(){return fechaNacimiento;}
     
 

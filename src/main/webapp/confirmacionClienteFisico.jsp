@@ -63,7 +63,7 @@ co<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="
     </header>
 
     <div class="container">
-        <p><strong>Código del Cliente:</strong> 123456</p> <!-- generarCodigoen el futuro -->
+        <p><strong>Código del Cliente:</strong><%=request.getParameter("codigoCliente")%></p> <!-- generarCodigoen el futuro -->
         <p><strong>Nombre Completo:</strong> <%= request.getParameter("nombre") %></p>
         <p><strong>Número de Teléfono:</strong> <%= request.getParameter("telefono") %></p>
         <p><strong>Dirección de Correo Electrónico:</strong> <%= request.getParameter("email") %></p>

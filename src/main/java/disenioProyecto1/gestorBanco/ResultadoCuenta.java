@@ -52,20 +52,49 @@ public class ResultadoCuenta {
         // Si no se encuentra la cuenta
         return new ResultadoCuenta(0.0, 0.0, false);
     }
+    
+    
     public static ResultadoCuenta existeCuentaBancariaRet(String numCuenta, double cantidadRetirar, String pin) throws SQLException {
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
-        for (CuentaBancaria cuenta : listaCuentas) {
-            if (cuenta.numeroCuenta.equals(numCuenta) && cuenta.PIN_Asociado.equals(pin)) {
-                cuenta.retirar(cantidadRetirar);
-                limpiarTablaCuentas();
-                boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
-                return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
-            }
+
+        CuentaBancaria cuenta = buscarCuentaPorNumeroYPin(listaCuentas, numCuenta, pin);
+        if (cuenta == null) {
+            return new ResultadoCuenta(0.0, 0.0, false);
         }
 
-        // Si no se encuentra la cuenta
+        if (!tieneFondosSuficientes(cuenta, cantidadRetirar)) {
+            return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, false);
+        }
+
+        return procesarRetiro(cuenta, cantidadRetirar, listaCuentas);
+    }
+
+    // Método para buscar la cuenta por número y PIN
+    private static CuentaBancaria buscarCuentaPorNumeroYPin(List<CuentaBancaria> listaCuentas, String numCuenta, String pin) {
+        for (CuentaBancaria cuenta : listaCuentas) {
+            if (cuenta.numeroCuenta.equals(numCuenta) && cuenta.PIN_Asociado.equals(pin)) {
+                return cuenta;
+            }
+        }
+        return null;
+    }
+
+    // Método para verificar si tiene fondos suficientes
+    private static boolean tieneFondosSuficientes(CuentaBancaria cuenta, double cantidadRetirar) {
+        return cuenta.dineroEnLaCuenta >= cantidadRetirar;
+    }
+
+    // Método para procesar el retiro y guardar cambios en la base de datos
+    private static ResultadoCuenta procesarRetiro(CuentaBancaria cuenta, double cantidadRetirar, List<CuentaBancaria> listaCuentas) throws SQLException {
+        cuenta.retirar(cantidadRetirar);
+        limpiarTablaCuentas();
+        boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
+
+        if (seInserto) {
+            return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
+        }
         return new ResultadoCuenta(0.0, 0.0, false);
-    } 
+    }
     public static boolean existeCuentaYPin(String numCuenta,String pinCif) throws SQLException{
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
         for (CuentaBancaria cuenta : listaCuentas) {

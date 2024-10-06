@@ -94,5 +94,16 @@ public class ValidacionesCuentas {
         return "noHay";   
     }
     
+    public static boolean validarSiExisteCuentaYPin(String numCuenta, String pin) throws SQLException{
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for(CuentaBancaria cuenta : listaCuentas){
+            if (cuenta.PIN_Asociado.equals(pin) && cuenta.numeroCuenta.equals(numCuenta)){
+                return true;
+            }        
+        }
+        return false;
+    
+    }
+    
 
 }

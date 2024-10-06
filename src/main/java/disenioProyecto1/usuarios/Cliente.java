@@ -26,4 +26,5 @@ public abstract class Cliente {
     }
     public ArrayList<CuentaBancaria> getListaCuentas(){return cuentas;}
     public void enviarCorreoInactivacion(String mensaje){}
+    public void setTelefono (int nuevoTelefono){}
 }

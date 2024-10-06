@@ -104,6 +104,7 @@ public class BaseDeDatosCFisico {
     
     
     public static void eliminarCliente(BasesDatos baseDeDatos, int identificacion) throws SQLException {
+        
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para eliminar datos
@@ -130,5 +131,29 @@ public class BaseDeDatosCFisico {
             }
         }
     }
+    public static void limpiarTablaCfisico() throws SQLException {
+        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        Connection con = baseDeDatos.getConnection();
+
+        // Sentencia SQL para limpiar la tabla
+        String sql = "DELETE FROM clientesFisicos";
+
+        PreparedStatement limpiador = null;
+
+        try {
+            limpiador = con.prepareStatement(sql); // Prepara la sentencia
+
+            // Ejecuta la sentencia
+            limpiador.executeUpdate();
+            System.out.println("¡Tabla clientesFisicos limpiada correctamente!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (limpiador != null) {
+                limpiador.close();
+            }
+        }
+    }
+
     
 }

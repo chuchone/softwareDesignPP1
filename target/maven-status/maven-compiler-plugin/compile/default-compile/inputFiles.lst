@@ -3,6 +3,7 @@ C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyect
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\integracion\SMSSender.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\integracion\CifradorDES.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\ProcesarRetiroColonesServlet.java
+C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\CambiarTelefonoServlet.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\CrearClienteFisicoServlet.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\capaDatos\validaciones\ValidarNuevosUsuarios.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\MostrarTipoCambioVenta.java
@@ -33,7 +34,7 @@ C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyect
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\SaldoActualServlet.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\capaDatos\conexionSql\BasesDatos.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\usuarios\Cliente.java
-C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\CambiarTelefonoCliente.java
+C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\ProcesarRetiroColonesDespSMS.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\EliminarCuentaServlet.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\capaDatos\conexionSql\BaseDeDatosRegistros.java
 C:\Users\Usuario\Desktop\universidad\2024_Semestre_2\Disenio_de_software\proyecto_1\pp1\proyecto1\src\main\java\disenioProyecto1\controladores\ProcesarRetiroDolaresServlet.java

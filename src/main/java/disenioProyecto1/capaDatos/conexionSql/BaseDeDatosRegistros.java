@@ -80,5 +80,27 @@ public class BaseDeDatosRegistros {
         
         return transacciones;
     }
+    public static void eliminarTablaRegistros() throws SQLException {
+        BasesDatos baseDeDatos = conectarBasesDeDatos(); // Método que maneja la conexión
+        Connection con = baseDeDatos.getConnection();
+        String sql = "DROP TABLE IF EXISTS Registros"; // Sentencia para eliminar la tabla
+
+        PreparedStatement statement = null;
+
+        try {
+            statement = con.prepareStatement(sql); // Prepara la sentencia
+            statement.executeUpdate(); // Ejecuta la sentencia de eliminación
+            System.out.println("Tabla 'Registros' eliminada exitosamente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (statement != null) {
+                statement.close(); // Cerrar el statement
+            }
+            if (con != null && !con.isClosed()) {
+                con.close(); // Cerrar la conexión
+            }
+        }
+    }
     
 }

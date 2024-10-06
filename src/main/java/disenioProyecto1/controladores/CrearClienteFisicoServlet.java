@@ -39,7 +39,7 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         String identificacion = request.getParameter("identificacion");
         String maxCuentas = request.getParameter("maxCuentas");
         String fechaNacimiento = request.getParameter("fechaNacimiento");
-        // Validar y procesar la solicitud
+        
         String mensajeDeError = validarDatos(nombre, email, telefono);
         if (mensajeDeError != null) {
             manejarError(request, response, mensajeDeError);
@@ -47,7 +47,7 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         }
         int[] valoresInt = convertirValoresEnteros(telefono, identificacion, maxCuentas, request, response);
         if (valoresInt == null) {
-            return; // Se maneja el error dentro de la función
+            return; 
         }        
         boolean ClienteNoExiste = false;
         try {
@@ -59,7 +59,7 @@ public class CrearClienteFisicoServlet extends HttpServlet {
             String codigoCliente = generarCodigoCliente();               
             CFisico obj = new CFisico(valoresInt[0], email, nombre, valoresInt[1], fechaNacimiento, valoresInt[2], codigoCliente);
             delegarCrearCFisico(obj);
-            prepararConfirmacion(request, nombre, telefono, email, identificacion, maxCuentas, fechaNacimiento);
+            prepararConfirmacion(request, codigoCliente, nombre, telefono, email, identificacion, maxCuentas, fechaNacimiento);
             request.getRequestDispatcher("/confirmacionClienteFisico.jsp").forward(request, response);
         }    
     }
@@ -92,8 +92,9 @@ public class CrearClienteFisicoServlet extends HttpServlet {
         }
         return new int[]{telefonoInt, identificacionInt, maxCuentasInt}; // Retorna los valores como un arreglo
     }
-    private void prepararConfirmacion(HttpServletRequest request, String nombre, String telefono, String email,
+    private void prepararConfirmacion(HttpServletRequest request,String codigoCliente, String nombre, String telefono, String email,
             String identificacion, String maxCuentas, String fechaNacimiento) {
+        request.setAttribute("codigoCliente", codigoCliente);        
         request.setAttribute("nombre", nombre);
         request.setAttribute("telefono", telefono);
         request.setAttribute("email", email);
