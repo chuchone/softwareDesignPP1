@@ -107,7 +107,6 @@ public class BaseDeDatosCuentaBancaria {
 
             // Ejecuta la sentencia de eliminación
             int rowsDeleted = statement.executeUpdate();
-            System.out.println("Registros eliminados: " + rowsDeleted);
 
             return rowsDeleted > 0; // Devuelve true si se eliminaron filas
         } catch (SQLException e) {

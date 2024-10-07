@@ -4,20 +4,16 @@
  */
 package disenioProyecto1.controladores;
 
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.insertarListaCuentasBancarias;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
+
 import static disenioProyecto1.gestorBanco.GestionBanco.obtenerComisiones;
-import disenioProyecto1.gestorBanco.ResultadoCuenta;
 import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaRet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  *
@@ -59,7 +55,7 @@ public class ProcesarRetiroColonesDespSMS extends HttpServlet {
 
     // Método para redirigir a la página de error
     private void redirigirError(HttpServletRequest request, HttpServletResponse response, String mensajeError) throws ServletException, IOException {
-        request.setAttribute("error", mensajeError);
+        request.setAttribute("mensajeDeError", mensajeError);
         request.getRequestDispatcher("error.jsp").forward(request, response);
     }
 }

@@ -76,8 +76,8 @@
             }
 
             // Validar formato del PIN (4 dígitos numéricos)
-            if (pin.length !== 4 || isNaN(pin)) {
-                alert("El PIN debe tener 4 dígitos.");
+            if (pin.length !== 7) {
+                alert("El PIN debe tener 7 dígitos.");
                 return false;
             }
 
@@ -102,7 +102,7 @@
         <input type="text" id="identidad" name="identidad" required>
 
         <label for="pin">PIN de la Cuenta:</label>
-        <input type="password" id="pin" name="pin" maxlength="4" required>
+        <input type="password" id="pin" name="pin" maxlength="7" required>
 
         <label for="montoInicial">Monto de Depósito Inicial:</label>
         <input type="text" id="montoInicial" name="montoInicial" required>

@@ -63,7 +63,7 @@ public class BaseDeDatosRegistros {
                 String fecha = resultSet.getString("fecha");
                 double comision = resultSet.getDouble("comision");
                 double dineroEnCuenta = resultSet.getDouble("dineroEnCuenta");
-                String numCuenta = resultSet.getString("numCuenta");
+                String numCuenta = resultSet.getString("numCuentaQuePertenece");
 
                 // Crear un objeto Transaccion y agregarlo a la lista
                 Transaccion transaccion = new Transaccion(monto, tipoTransaccion, fecha, comision, dineroEnCuenta, numCuenta);
@@ -79,6 +79,8 @@ public class BaseDeDatosRegistros {
         }
         
         return transacciones;
+        
+       
     }
     public static void eliminarTablaRegistros() throws SQLException {
         BasesDatos baseDeDatos = conectarBasesDeDatos(); // Método que maneja la conexión
@@ -90,7 +92,6 @@ public class BaseDeDatosRegistros {
         try {
             statement = con.prepareStatement(sql); // Prepara la sentencia
             statement.executeUpdate(); // Ejecuta la sentencia de eliminación
-            System.out.println("Tabla 'Registros' eliminada exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

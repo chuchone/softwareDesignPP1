@@ -10,13 +10,19 @@ package disenioProyecto1.gestorBanco;
  */
 
 
+import com.itextpdf.text.DocumentException;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numClientesCreados;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numCuentasCreadas;
+import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
 import java.util.ArrayList;
 import java.util.List;
 import disenioProyecto1.usuarios.CJuridico;
 import disenioProyecto1.usuarios.CFisico;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class GestionBanco {
@@ -46,7 +52,73 @@ public class GestionBanco {
         listaTransacciones.clear();
         return cantidad;
     }
+    
+    public static boolean prevMandarStatus (String numeroCuenta) throws SQLException, IOException, DocumentException{
+        
+        List<Transaccion> listaTransaccionesDelUsuario = ObtenerlistaTransacciones(numeroCuenta);
+        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);        
+        if (cuenta != null && listaTransaccionesDelUsuario != null){
+            long identificacion = cuenta.cedulaPersonaAsociada;
+            if(identificacion <= 999999999){            
+                CFisico cliente = obtenerCFisico(identificacion);
+                crearEstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
+                return true;
+            }else{            
+                CJuridico cliente = obtenerCJuridico(identificacion);
+                crearEstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static List<Transaccion> ObtenerlistaTransacciones (String numeroCuenta) throws SQLException{
+        List<Transaccion> listaTransacciones = obtenerTransacciones();
+        ArrayList<Transaccion> listaTransaccionesDelUsuario = new ArrayList<>(); 
 
+        for (Transaccion obj: listaTransacciones){
+            if (obj.numCuentaQuePertenese.equals(numeroCuenta)){
+                listaTransaccionesDelUsuario.add(obj);
+            }
+        }    
+        return listaTransaccionesDelUsuario;     
+    }
+    public static CuentaBancaria obtenerCuenta (String numCuenta) throws SQLException{
+    
+        List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
+        for(CuentaBancaria cuenta : listaCuentas){
+        
+            if(cuenta.numeroCuenta.equals(numCuenta)){
+                return cuenta;
+            }
+        }
+        return null;
+    }       
+        
+    public static CFisico obtenerCFisico(long identificacion) throws SQLException{
+        List<CFisico> listaDeCFisico = obtenerListaClientesFisicos();
+        for(CFisico cliente: listaDeCFisico){
+            if(cliente.identificacion == identificacion){
+                listaDeCFisico.clear();
+                return cliente;           
+            }        
+        }
+        listaDeCFisico.clear();
+        return null;
+    }
+    public static CJuridico obtenerCJuridico(long identificacion) throws SQLException{
+        
+        List<CJuridico> listaDeCJuridico = obtenerListaClientesJuridicos();
+        for(CJuridico cliente: listaDeCJuridico){
+            if(cliente.identificacion == identificacion){
+                listaDeCJuridico.clear();
+                return cliente;              
+            }            
+        }
+        listaDeCJuridico.clear();
+        return null;
+    
+    }
 
 }
   

@@ -48,8 +48,25 @@ public class CuentaBancaria {
     }
 
     public void depositar(double cant) throws SQLException{
+        double comision = 0;
         dineroEnLaCuenta = dineroEnLaCuenta + cant;
-        crearRegistro("Deposito", dineroEnLaCuenta, cant, 0);
+        if (validarRetiro(dineroEnLaCuenta, cant)) {
+            dineroEnLaCuenta = dineroEnLaCuenta + cant;
+            cantidadRetiros = cantidadRetiros + 1;
+            if (cantidadRetiros > 3) {
+                comision = calcularCincoPorciento(dineroEnLaCuenta);
+                aplicarMulta5Porciento(comision);
+                crearRegistro("Deposito", dineroEnLaCuenta, cant, comision);
+            
+            }else{
+                crearRegistro("Deposito", dineroEnLaCuenta, cant, 0);
+                
+            }
+    
+        }else{
+            System.out.println("Fallo");
+
+        }
     }
     public void retirar(double cant) throws SQLException{ // falta mejorar diseño del metodo, implementarlo mejor
         double comision = 0;

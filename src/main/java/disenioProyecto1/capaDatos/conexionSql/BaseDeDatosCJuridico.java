@@ -23,7 +23,7 @@ public class BaseDeDatosCJuridico {
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para obtener todos los clientes jurídicos
-        String sql = "DELETE FROM clientesJuridicos";
+        String sql = "SELECT * FROM clientesJuridicos";
 
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -116,7 +116,6 @@ public class BaseDeDatosCJuridico {
 
             // Ejecuta la sentencia
             limpiador.executeUpdate();
-            System.out.println("¡Tabla clientes Juridicos limpiada correctamente!");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

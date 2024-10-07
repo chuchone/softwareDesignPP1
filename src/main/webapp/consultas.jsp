@@ -71,6 +71,8 @@
         <a href="saldoActual.jsp" class="consult-option">Consultar Saldo Actual</a>
         <a href="saldoActualCambio.jsp" class="consult-option">Consultar Saldo Actual con cambio de divisa</a>
         <a href="consultarStatus.jsp" class="consult-option">Consultar estatus de la cuenta</a>
+        <a href="estadoCuentaColones.jsp" class="consult-option">Consultar estado de cuenta</a>
+        <a href="estadoCuentaCambio.jsp" class="consult-option">Consultar estado de cuenta con cambio de divisa</a>
 
         <a href="index.jsp" class="consult-option">Volver al Inicio</a>
     </div>

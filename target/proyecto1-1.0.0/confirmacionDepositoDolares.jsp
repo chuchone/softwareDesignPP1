@@ -5,11 +5,12 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="disenioProyecto1.integracion.ConexionBCCR" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Confirmación de Depósito de dolares</title>
+    <title>Confirmación de Depósito de colones</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,6 +58,7 @@
         <h1>Confirmación de Depósito</h1>
         <p>El monto real depositado a su cuenta aplicando el cambio de divisa a colones es: <strong><%= request.getAttribute("numeroCuenta") %></strong> es de <strong><%= String.format("%.2f", request.getAttribute("montoDepositado")) %></strong> colones.</p>
         <p>Las comisiones suman un monto total de: <strong><%= String.format("%.2f", request.getAttribute("montoComision")) %></strong> colones, que se han ido rebajado de su sueldo actual.</p>
+        <p>Tipo de Cambio (Venta): ₡ <%= ConexionBCCR.obtenerTipoCambio("317") %></p>
         <a href="index.jsp">Volver a la página principal</a>
     </div>
 </body>

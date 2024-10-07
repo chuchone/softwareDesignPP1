@@ -28,8 +28,8 @@ public class ValidacionesCuentas {
     
 
     public static String validarPin(String pin) {
-        if (pin.length() != 4 || !pin.matches("\\d{4}")) {
-            return "El PIN debe tener 4 dígitos.";
+        if (pin.length() != 7) {
+            return "El PIN debe tener 7 dígitos.";
         }
         return null; // Sin errores
     }
@@ -98,9 +98,11 @@ public class ValidacionesCuentas {
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
         for(CuentaBancaria cuenta : listaCuentas){
             if (cuenta.PIN_Asociado.equals(pin) && cuenta.numeroCuenta.equals(numCuenta)){
+                listaCuentas.clear();
                 return true;
             }        
         }
+        listaCuentas.clear();
         return false;
     
     }
