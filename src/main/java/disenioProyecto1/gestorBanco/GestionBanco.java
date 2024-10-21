@@ -18,6 +18,7 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtene
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numClientesCreados;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numCuentasCreadas;
 import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
+import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuentaDolares;
 import java.util.ArrayList;
 import java.util.List;
 import disenioProyecto1.usuarios.CJuridico;
@@ -52,7 +53,24 @@ public class GestionBanco {
         listaTransacciones.clear();
         return cantidad;
     }
-    
+    public static boolean prevMandarStatusDolares (String numeroCuenta) throws SQLException, IOException, DocumentException{
+        
+        List<Transaccion> listaTransaccionesDelUsuario = ObtenerlistaTransacciones(numeroCuenta);
+        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);        
+        if (cuenta != null && listaTransaccionesDelUsuario != null){
+            long identificacion = cuenta.cedulaPersonaAsociada;
+            if(identificacion <= 999999999){            
+                CFisico cliente = obtenerCFisico(identificacion);
+                crearEstadoCuentaDolares(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
+                return true;
+            }else{            
+                CJuridico cliente = obtenerCJuridico(identificacion);
+                crearEstadoCuentaDolares(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
+                return true;
+            }
+        }
+        return false;
+    }    
     public static boolean prevMandarStatus (String numeroCuenta) throws SQLException, IOException, DocumentException{
         
         List<Transaccion> listaTransaccionesDelUsuario = ObtenerlistaTransacciones(numeroCuenta);

@@ -80,20 +80,20 @@ public class CambiarTelefonoServlet extends HttpServlet {
                 request.getRequestDispatcher("resultadoCambioTelefono.jsp").forward(request, response);
 
             } else {
-                request.setAttribute("error", "Ocurrió un problema.");
+                request.setAttribute("mensajeDeError", "Ocurrió un problema.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             // Manejo de excepciones SQL
-            request.setAttribute("error", "Ocurrió un error al acceder a la base de datos.");
+            request.setAttribute("mensajeDeError", "Ocurrió un error al acceder a la base de datos.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             // Manejo de excepciones de formato de número
-            request.setAttribute("error", "El formato del número ingresado es inválido.");
+            request.setAttribute("mensajeDeError", "El formato del número ingresado es inválido.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (Exception e) {
             // Manejo de cualquier otra excepción
-            request.setAttribute("error", "Ocurrió un error inesperado.");
+            request.setAttribute("mensajeDeError", "Ocurrió un error inesperado.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

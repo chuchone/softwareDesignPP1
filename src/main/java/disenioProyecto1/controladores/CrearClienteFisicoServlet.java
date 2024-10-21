@@ -76,7 +76,7 @@ public class CrearClienteFisicoServlet extends HttpServlet {
     private void manejarError(HttpServletRequest request, HttpServletResponse response, String mensajeDeError)
             throws ServletException, IOException {
         request.setAttribute("mensajeDeError", mensajeDeError);
-        request.getRequestDispatcher("/error.jsp").forward(request, response);
+        request.getRequestDispatcher("error.jsp").forward(request, response);
     }
     private int[] convertirValoresEnteros(String telefono, String identificacion, String maxCuentas, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int telefonoInt, identificacionInt, maxCuentasInt;

@@ -47,9 +47,9 @@ public class BasesDatos {
     
 
     
-    public static int numClientesCreados(){
+    public static int numClientesCreados() {
         BasesDatos base_disenio = conectarBasesDeDatos();
-        String sqlSelect = "SELECT * FROM informacionGeneral";
+        String sqlSelect = "SELECT cantUsuarios FROM informacionGeneral"; // Ajusta para obtener solo la columna relevante
         String sqlUpdate = "UPDATE informacionGeneral SET cantUsuarios = ?";
 
         int sumaColumna2 = 0;
@@ -58,22 +58,25 @@ public class BasesDatos {
              PreparedStatement statementSelect = con.prepareStatement(sqlSelect);
              ResultSet resultSet = statementSelect.executeQuery()) {
 
-            if (resultSet.next()) { // Verifica si hay un registro
-                int valorColumna2 = resultSet.getInt(2); // Obtiene el valor de la columna 2
-                sumaColumna2 = valorColumna2 + 1; // Suma 1 al valor de la columna 2
+            if (resultSet.next()) { 
+                int valorColumna2 = resultSet.getInt("cantUsuarios"); 
+                sumaColumna2 = valorColumna2 + 1; // Suma 1 al valor de la columna
 
-                // Actualiza el valor de la columna 2
+                // Actualiza el valor de la columna
                 try (PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
-                    statementUpdate.setInt(1, sumaColumna2); // Establece el nuevo valor
-                    statementUpdate.executeUpdate();
+                    statementUpdate.setInt(1, sumaColumna2); 
+                    int rowsUpdated = statementUpdate.executeUpdate();
+                   
                 }
+            } else {
+                System.out.println("No se encontró ningún registro en informacionGeneral.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); 
         }
 
-        return sumaColumna2; // Retorna la suma total de la columna 2
-    }  
+        return sumaColumna2; 
+    }
     
     
     public static int numCuentasCreadas(){

@@ -80,17 +80,17 @@ public class CambiarCorreoCliente extends HttpServlet {
                 request.getRequestDispatcher("resultadoCambioCorreo.jsp").forward(request, response);
 
             } else {
-                request.setAttribute("error", "Cliente no encontrado.");
+                request.setAttribute("mensajeDeError", "Cliente no encontrado.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (SQLException e) {
-            request.setAttribute("error", "Ocurrió un error al acceder a la base de datos.");
+            request.setAttribute("mensajeDeError", "Ocurrió un error al acceder a la base de datos.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "El formato de la identificación es inválido.");
+            request.setAttribute("mensajeDeError", "El formato de la identificación es inválido.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (Exception e) {
-            request.setAttribute("error", "Ocurrió un error inesperado.");
+            request.setAttribute("mensajeDeError", "Ocurrió un error inesperado.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

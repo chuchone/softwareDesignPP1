@@ -8,6 +8,7 @@ disenioProyecto1\controladores\EnviarStatusCuentaColonesServlet.class
 disenioProyecto1\integracion\ConexionBCCR.class
 disenioProyecto1\usuarios\CJuridico.class
 disenioProyecto1\controladores\DepositoEnColonesServlet.class
+disenioProyecto1\controladores\ImprimirCuentasServlet.class
 disenioProyecto1\JakartaRestConfiguration.class
 disenioProyecto1\integracion\CifradorDES.class
 disenioProyecto1\capaDatos\validaciones\ValidacionesFormularios.class
@@ -22,6 +23,7 @@ disenioProyecto1\capaDatos\conexionSql\BasesDatos.class
 disenioProyecto1\controladores\ProcesarRetiroDolaresDespSMS.class
 disenioProyecto1\usuarios\CFisico.class
 disenioProyecto1\controladores\DepositoCambioServlet.class
+disenioProyecto1\controladores\EnviarStatusCuentaDolaresServlet.class
 disenioProyecto1\gestorBanco\CuentaBancaria.class
 disenioProyecto1\controladores\CrearClienteJuridicoServlet$ValidationException.class
 disenioProyecto1\controladores\EliminarCuentaServlet.class

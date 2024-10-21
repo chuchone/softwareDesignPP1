@@ -65,8 +65,8 @@ public class EnviarStatusCuentaColonesServlet extends HttpServlet {
                 }
                      
             }else{
-                     request.setAttribute("mensajeDeError", errorMsg);
-                     request.getRequestDispatcher("error.jsp").forward(request, response);          
+                 request.setAttribute("mensajeDeError", errorMsg);
+                 request.getRequestDispatcher("error.jsp").forward(request, response);          
            } 
         } catch (SQLException ex ) {
             Logger.getLogger(EnviarStatusCuentaColonesServlet.class.getName()).log(Level.SEVERE, null, ex);

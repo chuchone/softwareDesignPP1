@@ -54,15 +54,15 @@ public class ProcesarRetiroColonesServlet extends HttpServlet {
                 // Redireccionar al JSP de ingresar SMS
                 response.sendRedirect("ingresarSMSRetiColones.jsp");
             } else {
-                request.setAttribute("error", "PIN inválido.");
+                request.setAttribute("mensajeDeError", "PIN inválido.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "Monto inválido.");
+            request.setAttribute("mensajeDeError", "Monto inválido.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(ProcesarRetiroColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "Ocurrió un problema.");
+            request.setAttribute("mensajeDeError", "Ocurrió un problema.");
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

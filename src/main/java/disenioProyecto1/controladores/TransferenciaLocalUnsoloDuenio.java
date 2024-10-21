@@ -50,13 +50,13 @@ public class TransferenciaLocalUnsoloDuenio extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 // Manejar el caso en que las cédulas no coincidan
-                request.setAttribute("error", "Las cuentas no pertenecen al mismo dueño.");
+                request.setAttribute("mensajeDeError", "Las cuentas no pertenecen al mismo dueño.");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(TransferenciaLocalUnsoloDuenio.class.getName()).log(Level.SEVERE, null, ex);
-            request.setAttribute("error", "Ocurrió un error durante la transferencia.");
+            request.setAttribute("mensajeDeError", "Ocurrió un error durante la transferencia.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
             dispatcher.forward(request, response);
         }
