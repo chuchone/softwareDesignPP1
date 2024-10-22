@@ -1,7 +1,7 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -65,13 +65,11 @@ public class BaseDeDatosCuentaBancaria {
             statement = con.prepareStatement(sql); // Prepara la sentencia
             resultSet = statement.executeQuery(); // Ejecuta la consulta
 
-            // Iterar sobre el resultado y crear objetos CuentaBancaria
             while (resultSet.next()) {
-                // Crear un nuevo objeto CuentaBancaria utilizando el constructor proporcionado
                 CuentaBancaria cuenta = new CuentaBancaria(
                     resultSet.getLong("identiCliente"),
                     resultSet.getString("pinAsociado"),
-                    resultSet.getDouble("saldo"), // Cambiar a int, según lo que necesites
+                    resultSet.getDouble("saldo"), 
                     resultSet.getDouble("cantComisiones"),
                     resultSet.getDouble("canRetiros"),
                     resultSet.getBoolean("status"),
@@ -80,7 +78,7 @@ public class BaseDeDatosCuentaBancaria {
                     resultSet.getString("nombreDuenio")
                 );
 
-                listaCuentas.add(cuenta); // Agregar cuenta a la lista
+                listaCuentas.add(cuenta); 
             }
 
         } catch (SQLException e) {

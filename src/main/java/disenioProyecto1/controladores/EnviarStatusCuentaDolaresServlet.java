@@ -6,7 +6,7 @@ package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarPin;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarSiExisteCuentaYPin;
-import static disenioProyecto1.gestorBanco.GestionBanco.prevMandarStatusDolares;
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.prevMandarStatusDolares;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import java.io.IOException;
 import java.io.PrintWriter;

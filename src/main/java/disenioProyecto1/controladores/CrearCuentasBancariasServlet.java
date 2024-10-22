@@ -1,9 +1,9 @@
 package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.insertarDatosCBancaria;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
-import static disenioProyecto1.gestorBanco.CuentaBancaria.obtenerFechaActual;
-import static disenioProyecto1.gestorBanco.GestionBanco.generarCodigoCuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
+import static disenioProyecto1.modelo.gestorBanco.CuentaBancaria.obtenerFechaActual;
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.generarCodigoCuentaBancaria;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.*;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarSiExisteCliente;

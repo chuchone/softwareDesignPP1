@@ -9,10 +9,10 @@ import disenioProyecto1.capaDatos.conexionSql.BasesDatos;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
 import jakarta.servlet.annotation.WebServlet;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
-import static disenioProyecto1.capaDatos.validaciones.ValidarNuevosUsuarios.validarNuevoCFisico;
-import static disenioProyecto1.gestorBanco.GestionBanco.generarCodigoCliente;
+import static disenioProyecto1.capaDatos.validaciones.ValidacionesUsuarios.validarNuevoCFisico;
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.generarCodigoCliente;
 
-import disenioProyecto1.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CFisico;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

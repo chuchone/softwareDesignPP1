@@ -4,8 +4,8 @@
  */
 package disenioProyecto1.controladores;
 
-import disenioProyecto1.gestorBanco.ResultadoCuenta;
-import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaDep;
+import disenioProyecto1.modelo.gestorBanco.ResultadoCuenta;
+import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaBancariaDep;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

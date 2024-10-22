@@ -5,7 +5,7 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
-import disenioProyecto1.usuarios.CJuridico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

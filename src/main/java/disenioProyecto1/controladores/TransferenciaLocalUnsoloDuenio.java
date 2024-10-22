@@ -6,9 +6,9 @@ package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
 import disenioProyecto1.capaDatos.conexionSql.BasesDatos;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
-import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuenta;
-import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaYPin;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
+import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuenta;
+import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaYPin;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package disenioProyecto1.usuarios;
+package disenioProyecto1.modelo.usuarios;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.conseguirNombreDeUsuario;
-import disenioProyecto1.gestorBanco.GestionBanco;
+import disenioProyecto1.modelo.gestorBanco.GestionBanco;
 /**
  *
  * @author Nelson

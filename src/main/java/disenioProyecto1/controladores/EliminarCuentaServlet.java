@@ -12,11 +12,11 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.o
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.eliminarTablaRegistros;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.insertarDatosCBancaria;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
-import disenioProyecto1.gestorBanco.Transaccion;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
-import disenioProyecto1.usuarios.CFisico;
-import disenioProyecto1.usuarios.CJuridico;
+import disenioProyecto1.modelo.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;

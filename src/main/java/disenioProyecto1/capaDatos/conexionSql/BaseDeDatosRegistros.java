@@ -5,7 +5,7 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
-import disenioProyecto1.gestorBanco.Transaccion;
+import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

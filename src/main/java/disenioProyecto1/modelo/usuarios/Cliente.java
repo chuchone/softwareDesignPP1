@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package disenioProyecto1.usuarios;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
+package disenioProyecto1.modelo.usuarios;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 /**
  *
  * @author Nelson

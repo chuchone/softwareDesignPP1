@@ -5,7 +5,7 @@
 package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -56,6 +56,6 @@ public class ImprimirCuentasServlet extends HttpServlet {
         }
         return listaCuentasDeUsuario;
     
-    }
-
+    }      
+        
 }

@@ -9,7 +9,7 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerL
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
-import static disenioProyecto1.gestorBanco.GestionBanco.prevMandarStatus;
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.prevMandarStatus;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,18 +19,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarPin;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.validarSiExisteCuentaYPin;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
-import disenioProyecto1.gestorBanco.Transaccion;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
-import disenioProyecto1.usuarios.CFisico;
-import disenioProyecto1.usuarios.CJuridico;
+import disenioProyecto1.modelo.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static disenioProyecto1.gestorBanco.GestionBanco.prevMandarStatus;        
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.prevMandarStatus;        
 /**
  *
  * @author Nelson

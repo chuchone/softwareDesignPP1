@@ -5,8 +5,8 @@
 package disenioProyecto1.controladores;
 
 
-import static disenioProyecto1.gestorBanco.GestionBanco.obtenerComisiones;
-import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaRet;
+import static disenioProyecto1.modelo.gestorBanco.GestionBanco.obtenerComisiones;
+import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaBancariaRet;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

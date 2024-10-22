@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package disenioProyecto1.gestorBanco;
+package disenioProyecto1.modelo.gestorBanco;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.insertarDatosCBancaria;
 import java.util.ArrayList;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import disenioProyecto1.gestorBanco.Transaccion;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesInternas;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarMulta;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarRetiro;

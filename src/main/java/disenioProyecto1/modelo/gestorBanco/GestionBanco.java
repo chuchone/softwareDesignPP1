@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package disenioProyecto1.gestorBanco;
+package disenioProyecto1.modelo.gestorBanco;
 
 /**
  *
@@ -10,6 +10,7 @@ package disenioProyecto1.gestorBanco;
  */
 
 
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import com.itextpdf.text.DocumentException;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
@@ -21,8 +22,8 @@ import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
 import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuentaDolares;
 import java.util.ArrayList;
 import java.util.List;
-import disenioProyecto1.usuarios.CJuridico;
-import disenioProyecto1.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
+import disenioProyecto1.modelo.usuarios.CFisico;
 import java.io.IOException;
 import java.sql.SQLException;
 

@@ -6,7 +6,7 @@ package disenioProyecto1.integracion;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
-import disenioProyecto1.gestorBanco.Transaccion;
+import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
 import java.io.FileOutputStream;
 import java.io.IOException;

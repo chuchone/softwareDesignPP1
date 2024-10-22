@@ -4,25 +4,23 @@
     Author     : Nelson
 --%>
 
+<%@ page import="disenioProyecto1.modelo.gestorBanco.CuentaBancaria"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="disenioProyecto1.gestorBanco.CuentaBancaria" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Imprimir Cuentas de Usuario</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Si deseas incluir estilos -->
+    <link rel="stylesheet" href="styles.css"> 
 </head>
 <body>
     <h1>Cuentas de Usuario</h1>
     
     <%
-        // Obtener la lista de cuentas de usuario desde el request
         List<CuentaBancaria> listaCuentasDeUsuario = (List<CuentaBancaria>) request.getAttribute("listaCuentasDeUsuario");
         
-        // Verificar si la lista no es nula ni está vacía
         if (listaCuentasDeUsuario != null && !listaCuentasDeUsuario.isEmpty()) {
     %>
             <table border="1">
@@ -34,10 +32,8 @@
                 </thead>
                 <tbody>
                     <%
-                        // Crear una instancia de DecimalFormat para formatear el dinero
                         DecimalFormat df = new DecimalFormat("#.00");
 
-                        // Recorrer la lista de cuentas y mostrarlas en la tabla
                         for (CuentaBancaria cuenta : listaCuentasDeUsuario) {
                     %>
                     <tr>

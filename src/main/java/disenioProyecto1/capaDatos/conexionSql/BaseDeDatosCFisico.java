@@ -5,7 +5,7 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
-import disenioProyecto1.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CFisico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,12 +28,12 @@ public class BaseDeDatosCFisico {
         PreparedStatement insertador = null;
 
         try {
-            insertador = con.prepareStatement(sql); // Prepara la sentencia
+            insertador = con.prepareStatement(sql); 
             insertador.setInt(1, obj.telefono);
             insertador.setString(2, obj.cuenta);
             insertador.setString(3, obj.correo);
             insertador.setLong(4, obj.identificacion);
-            insertador.setString(5, obj.tipo); // Asegúrate de que "fisico" está asignado correctamente
+            insertador.setString(5, obj.tipo); 
             insertador.setInt(6, obj.maxCuentas);
             insertador.setString(7, obj.getfechaNacimiento());
             insertador.setString(8, obj.nombre);
@@ -61,7 +61,6 @@ public class BaseDeDatosCFisico {
 
         Connection con = baseDeDatos.getConnection();
 
-        // Sentencia SQL para obtener todos los clientes
         String sql = "SELECT * FROM clientesFisicos";
 
         PreparedStatement statement = null;
@@ -69,13 +68,12 @@ public class BaseDeDatosCFisico {
         ArrayList<CFisico> listaClientesFisicos = new ArrayList<>();
 
         try {
-            statement = con.prepareStatement(sql); // Prepara la sentencia
-            resultSet = statement.executeQuery(); // Ejecuta la consulta
+            statement = con.prepareStatement(sql); 
+            resultSet = statement.executeQuery(); 
 
-            // Procesa los resultados
             while (resultSet.next()) {
                 int telefono = resultSet.getInt("telefono");
-                String cuenta = resultSet.getString("nombreCuenta"); // correo quitando @example.com
+                String cuenta = resultSet.getString("nombreCuenta"); 
                 String correo = resultSet.getString("correoElectronico");
                 int identificacion = resultSet.getInt("identificacion");
                 String tipo = resultSet.getString("tipoCliente");
@@ -113,8 +111,8 @@ public class BaseDeDatosCFisico {
         PreparedStatement eliminador = null;
 
         try {
-            eliminador = con.prepareStatement(sql); // Prepara la sentencia
-            eliminador.setInt(1, identificacion); // Establece el valor del identificador
+            eliminador = con.prepareStatement(sql); 
+            eliminador.setInt(1, identificacion); 
 
             // Ejecuta la sentencia
             int filasEliminadas = eliminador.executeUpdate();
@@ -141,7 +139,7 @@ public class BaseDeDatosCFisico {
         PreparedStatement limpiador = null;
 
         try {
-            limpiador = con.prepareStatement(sql); // Prepara la sentencia
+            limpiador = con.prepareStatement(sql); 
 
             // Ejecuta la sentencia
             limpiador.executeUpdate();

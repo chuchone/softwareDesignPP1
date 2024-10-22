@@ -1,6 +1,6 @@
 package disenioProyecto1.capaDatos.validaciones;
 
-import disenioProyecto1.gestorBanco.GestionBanco;
+import disenioProyecto1.modelo.gestorBanco.GestionBanco;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

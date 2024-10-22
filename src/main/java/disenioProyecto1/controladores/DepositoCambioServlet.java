@@ -4,8 +4,8 @@
  */
 package disenioProyecto1.controladores;
 
-import disenioProyecto1.gestorBanco.ResultadoCuenta;
-import static disenioProyecto1.gestorBanco.ResultadoCuenta.existeCuentaBancariaDep;
+import disenioProyecto1.modelo.gestorBanco.ResultadoCuenta;
+import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaBancariaDep;
 import static disenioProyecto1.integracion.ConexionBCCR.convertirDolaresAColones;
 import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
 import java.io.IOException;

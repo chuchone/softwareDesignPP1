@@ -10,8 +10,9 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.insert
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.limpiarTablaCJuridico;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
 import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
-import disenioProyecto1.usuarios.CFisico;
-import disenioProyecto1.usuarios.CJuridico;
+import static disenioProyecto1.capaDatos.validaciones.ValidacionesUsuarios.*;
+import disenioProyecto1.modelo.usuarios.CFisico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -95,27 +96,4 @@ public class CambiarCorreoCliente extends HttpServlet {
         }
     }
 
-    private static boolean existeCJuridico(long identificacion) throws SQLException {
-        List<CJuridico> listaCJuridico = obtenerListaClientesJuridicos();
-        for (CJuridico cliente : listaCJuridico) {
-            if (cliente.identificacion == identificacion) {
-                listaCJuridico.clear();
-                return true;
-            }
-        }
-        listaCJuridico.clear();
-        return false;
-    }
-
-    private static boolean existeCFisico(long identificacion) throws SQLException {
-        List<CFisico> listaCFisicos = obtenerListaClientesFisicos();
-        for (CFisico cliente : listaCFisicos) {
-            if (cliente.identificacion == identificacion) {
-                listaCFisicos.clear();
-                return true;
-            }
-        }
-        listaCFisicos.clear();
-        return false;
-    }
 }

@@ -5,7 +5,7 @@
 package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
-import disenioProyecto1.gestorBanco.CuentaBancaria;
+import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
 import java.io.IOException;

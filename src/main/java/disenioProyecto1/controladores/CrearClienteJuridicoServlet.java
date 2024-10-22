@@ -6,8 +6,8 @@ package disenioProyecto1.controladores;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.insertarClienteJuridico;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
-import static disenioProyecto1.capaDatos.validaciones.ValidarNuevosUsuarios.validarNuevoCJuridico;
-import disenioProyecto1.usuarios.CJuridico;
+import static disenioProyecto1.capaDatos.validaciones.ValidacionesUsuarios.validarNuevoCJuridico;
+import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
