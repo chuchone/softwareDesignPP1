@@ -5,9 +5,11 @@
 --%>
 
 <%@ page import="disenioProyecto1.modelo.gestorBanco.CuentaBancaria"%>
+<%@ page import="disenioProyecto1.modelo.gestorBanco.Transaccion" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,6 +22,7 @@
     
     <%
         List<CuentaBancaria> listaCuentasDeUsuario = (List<CuentaBancaria>) request.getAttribute("listaCuentasDeUsuario");
+        Map<String, List<Transaccion>> transaccionesPorCuenta = (Map<String, List<Transaccion>>) request.getAttribute("transaccionesPorCuenta");
         
         if (listaCuentasDeUsuario != null && !listaCuentasDeUsuario.isEmpty()) {
     %>
@@ -38,7 +41,48 @@
                     %>
                     <tr>
                         <td><%= cuenta.numeroCuenta %></td>
-                        <td><%= df.format(cuenta.dineroEnLaCuenta) %></td> <!-- Formatear a dos decimales -->
+                        <td><%= df.format(cuenta.dineroEnLaCuenta) %></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <!-- Verificar si hay transacciones para la cuenta -->
+                            <%
+                                List<Transaccion> transacciones = transaccionesPorCuenta.get(cuenta.numeroCuenta);
+                                
+                                if (transacciones != null && !transacciones.isEmpty()) {
+                            %>
+                                <table border="1" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Tipo de Transacción</th>
+                                            <th>Monto</th>
+                                            <th>Comisión</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+                                            for (Transaccion transaccion : transacciones) {
+                                        %>
+                                        <tr>
+                                            <td><%= transaccion.fecha %></td>
+                                            <td><%= transaccion.tipoTransaccion %></td>
+                                            <td><%= df.format(transaccion.monto) %></td>
+                                            <td><%= df.format(transaccion.comision) %></td>
+                                        </tr>
+                                        <%
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                            <%
+                                } else {
+                            %>
+                                <p>No hay transacciones para esta cuenta.</p>
+                            <%
+                                }
+                            %>
+                        </td>
                     </tr>
                     <%
                         }

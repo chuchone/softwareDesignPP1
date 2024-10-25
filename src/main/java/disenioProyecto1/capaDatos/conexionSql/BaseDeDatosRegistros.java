@@ -49,15 +49,14 @@ public class BaseDeDatosRegistros {
     }
     public static List<Transaccion> obtenerTransacciones() throws SQLException {
         List<Transaccion> transacciones = new ArrayList<>();
-        BasesDatos baseDeDatos = conectarBasesDeDatos(); // Método que maneja la conexión
+        BasesDatos baseDeDatos = conectarBasesDeDatos(); 
         Connection con = baseDeDatos.getConnection();
-        String sql = "SELECT * FROM Registros"; // Ajusta esto según tu esquema
+        String sql = "SELECT * FROM Registros"; 
 
         try (PreparedStatement statement = con.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                // Asumiendo que el orden de las columnas es correcto
                 double monto = resultSet.getDouble("monto");
                 String tipoTransaccion = resultSet.getString("tipoTransaccion");
                 String fecha = resultSet.getString("fecha");
@@ -65,16 +64,15 @@ public class BaseDeDatosRegistros {
                 double dineroEnCuenta = resultSet.getDouble("dineroEnCuenta");
                 String numCuenta = resultSet.getString("numCuentaQuePertenece");
 
-                // Crear un objeto Transaccion y agregarlo a la lista
                 Transaccion transaccion = new Transaccion(monto, tipoTransaccion, fecha, comision, dineroEnCuenta, numCuenta);
                 transacciones.add(transaccion);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw e; // Propagar la excepción
+            throw e; 
         } finally {
             if (con != null && !con.isClosed()) {
-                con.close(); // Cerrar la conexión
+                con.close();
             }
         }
         
