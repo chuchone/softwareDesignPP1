@@ -4,7 +4,10 @@
  */
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.recorrerFisicosRCedula;
+import disenioProyecto1.modelo.usuarios.CFisico;
 import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,20 +21,20 @@ import java.util.ArrayList;
  */
 public class BaseDeDatosCJuridico {
     public static ArrayList<CJuridico> obtenerListaClientesJuridicos() throws SQLException {
-
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        ArrayList<CJuridico> listaClientesJuridicos = new ArrayList<>();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para obtener todos los clientes jurídicos
         String sql = "SELECT * FROM clientesJuridicos";
 
+
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        ArrayList<CJuridico> listaClientesJuridicos = new ArrayList<>();
-
         try {
             statement = con.prepareStatement(sql); // Prepara la sentencia
             resultSet = statement.executeQuery(); // Ejecuta la consulta
+
 
             // Procesa los resultados
             while (resultSet.next()) {
@@ -66,7 +69,8 @@ public class BaseDeDatosCJuridico {
     public static void insertarClienteJuridico(CJuridico obj) throws SQLException {
 
         // Conectar a la base de datos
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para insertar un nuevo cliente jurídico
@@ -103,7 +107,8 @@ public class BaseDeDatosCJuridico {
         
     }
     public static void limpiarTablaCJuridico() throws SQLException {
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para limpiar la tabla
@@ -124,4 +129,29 @@ public class BaseDeDatosCJuridico {
             }
         }
     }
+    private static long recorrerJuridicosRCedula(ArrayList<CJuridico> listaJuridicos, long cedula){
+    
+        for (CJuridico cliente : listaJuridicos){
+            if (cedula == cliente.identificacion){
+                return cliente.telefono;
+            }            
+        }
+        return 0;    
+    }
+    public static long obtenerNumeroTelefono (long cedula) throws SQLException{
+        ArrayList<CJuridico> listaJuridicos = obtenerListaClientesJuridicos();
+        ArrayList<CFisico> listaFisico = obtenerListaClientesFisicos();
+        long num = recorrerJuridicosRCedula(listaJuridicos, cedula);
+        long num2 = recorrerFisicosRCedula(listaFisico, cedula);
+        if (num != 0){
+            return num;
+        }else if(num2 != 0){
+            return num2;
+        }
+        return 0;
+    }
+
+        
+
+    
 }

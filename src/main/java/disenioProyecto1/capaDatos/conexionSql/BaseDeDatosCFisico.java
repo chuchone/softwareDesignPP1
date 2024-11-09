@@ -4,7 +4,7 @@
  */
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,9 @@ import java.util.ArrayList;
 public class BaseDeDatosCFisico {
     
     
-    public static void insertarDatosCFisico(BasesDatos baseDeDatos, CFisico obj) throws SQLException {
+    public static void insertarDatosCFisico(CFisico obj) throws SQLException {
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para insertar datos
@@ -35,7 +37,7 @@ public class BaseDeDatosCFisico {
             insertador.setLong(4, obj.identificacion);
             insertador.setString(5, obj.tipo); 
             insertador.setInt(6, obj.maxCuentas);
-            insertador.setString(7, obj.getfechaNacimiento());
+            insertador.setString(7, obj.fechaNacimiento);
             insertador.setString(8, obj.nombre);
             insertador.setString(9, obj.codigoCliente);
 
@@ -52,12 +54,31 @@ public class BaseDeDatosCFisico {
             }
         }
     }
+    public static boolean delegarCrearCFisico(CFisico obj) {
+        try {
+            insertarDatosCFisico(obj); 
+            return true; 
+        } catch (SQLException e) {           
+            e.printStackTrace(); // mostrar el error en la consola
+            return false;
+        }
+    }
+    
+    
+    public static long recorrerFisicosRCedula(ArrayList<CFisico> listaFisico,long cedula){
+        for (CFisico cliente : listaFisico){
+            if (cedula == cliente.identificacion){
+                return cliente.telefono;
+            }            
+        }
+        return 0;
+    }
     
     
     
     public static ArrayList<CFisico> obtenerListaClientesFisicos() throws SQLException {
         
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
 
         Connection con = baseDeDatos.getConnection();
 
@@ -101,8 +122,9 @@ public class BaseDeDatosCFisico {
     }
     
     
-    public static void eliminarCliente(BasesDatos baseDeDatos, int identificacion) throws SQLException {
-        
+    public static void eliminarCliente(int identificacion) throws SQLException {
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para eliminar datos
@@ -130,7 +152,8 @@ public class BaseDeDatosCFisico {
         }
     }
     public static void limpiarTablaCfisico() throws SQLException {
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para limpiar la tabla
@@ -152,6 +175,7 @@ public class BaseDeDatosCFisico {
             }
         }
     }
+    
 
     
 }

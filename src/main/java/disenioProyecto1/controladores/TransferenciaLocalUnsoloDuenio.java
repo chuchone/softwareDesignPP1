@@ -9,6 +9,7 @@ import disenioProyecto1.capaDatos.conexionSql.BasesDatos;
 import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuenta;
 import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaYPin;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerNumeroTelefono;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -40,7 +41,7 @@ public class TransferenciaLocalUnsoloDuenio extends HttpServlet {
             long cedula2 = existeCuenta(cuentaDestino);
 
             if (cedula == cedula2){
-                long numero = BasesDatos.obtenerNumeroTelefono(cedula);
+                long numero = obtenerNumeroTelefono(cedula);
                 String numero3 = String.valueOf(numero);
                 String palabra = mandarMensaje(numero3);
                 

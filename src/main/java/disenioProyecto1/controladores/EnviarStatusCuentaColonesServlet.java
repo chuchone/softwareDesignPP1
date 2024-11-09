@@ -22,7 +22,7 @@ import static disenioProyecto1.capaDatos.validaciones.ValidacionesCuentas.valida
 import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import static disenioProyecto1.integracion.CifradorDES.encriptarPIN;
-import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
+import static disenioProyecto1.integracion.GenerarPDF.*;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import disenioProyecto1.modelo.usuarios.CJuridico;
 import java.sql.SQLException;
@@ -39,42 +39,38 @@ import static disenioProyecto1.modelo.gestorBanco.GestionBanco.prevMandarStatus;
 public class EnviarStatusCuentaColonesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Obtener los parámetros del formulario
             String numeroCuenta = request.getParameter("numeroCuenta");
             String pinCuenta = request.getParameter("pinCuenta");
-            
-            // Validar el PIN
+            String idioma = request.getParameter("idioma"); 
+
             String errorMsg = validarPin(pinCuenta);
             String pinCifrado = encriptarPIN(pinCuenta);
             if (errorMsg == null) {
-                if (validarSiExisteCuentaYPin(numeroCuenta,pinCifrado )){
+                if (validarSiExisteCuentaYPin(numeroCuenta, pinCifrado)) {
 
-                    if(prevMandarStatus(numeroCuenta)){
+                    if (prevMandarStatus(numeroCuenta, idioma)) { 
 
                         request.getRequestDispatcher("confirmacionEstadoCuenta.jsp").forward(request, response);
                         return;
-                    }else{
+                    } else {
                         request.setAttribute("mensajeDeError", "Hubo un error");
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                         return;
                     }
-                }else{
-                     request.setAttribute("mensajeDeError", "Datos incorrectos");
-                     request.getRequestDispatcher("error.jsp").forward(request, response);
-                     return;
+                } else {
+                    request.setAttribute("mensajeDeError", "Datos incorrectos");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
                 }
-                     
-            }else{
-                 request.setAttribute("mensajeDeError", errorMsg);
-                 request.getRequestDispatcher("error.jsp").forward(request, response);          
-           } 
-        } catch (SQLException ex ) {
+
+            } else {
+                request.setAttribute("mensajeDeError", errorMsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(EnviarStatusCuentaColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(EnviarStatusCuentaColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
-
 }

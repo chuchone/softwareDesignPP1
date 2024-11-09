@@ -11,7 +11,7 @@ import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.conse
  * @author Nelson
  */
 public class CFisico extends Cliente {
-    private String fechaNacimiento;
+    public String fechaNacimiento;
    
     public CFisico(int telefono, String correo, String nombre, int identificacion, String fechaNacimiento, int maxCuentas, String codigoCliente){
         String cuenta = conseguirNombreDeUsuario(correo);
@@ -29,8 +29,6 @@ public class CFisico extends Cliente {
         
     }
     public void setTelefono (int nuevoTelefono){this.telefono = nuevoTelefono;}
-
-    public String getfechaNacimiento(){return fechaNacimiento;}
     
 
 

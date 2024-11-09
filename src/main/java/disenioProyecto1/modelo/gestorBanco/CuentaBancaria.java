@@ -22,7 +22,7 @@ import java.util.Date;
  */
 
 
-public class CuentaBancaria {
+public class CuentaBancaria implements IBasicosBanco {
     public long cedulaPersonaAsociada;
     public String fechaCreacion;
     public boolean statusCuentaActiva;
@@ -45,7 +45,8 @@ public class CuentaBancaria {
         this.numeroCuenta = numeroCuenta;
         this.nombreDuenio = nombreDuenio;
     }
-
+    
+    @Override
     public void depositar(double cant) throws SQLException{
         double comision = 0;
         dineroEnLaCuenta = dineroEnLaCuenta + cant;
@@ -67,6 +68,8 @@ public class CuentaBancaria {
 
         }
     }
+    
+    @Override
     public void retirar(double cant) throws SQLException{ // falta mejorar diseño del metodo, implementarlo mejor
         double comision = 0;
         if (validarRetiro(dineroEnLaCuenta, cant)) {

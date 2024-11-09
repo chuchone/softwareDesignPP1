@@ -1,6 +1,7 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerNumeroTelefono;
 import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,31 +20,37 @@ import java.util.List;
  * @author Nelson
  */
 public class BaseDeDatosCuentaBancaria {
-    public static boolean insertarDatosCBancaria(CuentaBancaria obj) throws SQLException{
-    
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+    public static boolean insertarDatosCBancaria(CuentaBancaria obj) throws SQLException {
+        
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
         Connection con = baseDeDatos.getConnection();
+        
+        // Verifica si la conexión está cerrada
+        if (con == null || con.isClosed()) {
+            throw new SQLException("No se pudo establecer la conexión a la base de datos.");
+        }
+
         String sql = "INSERT INTO cuentaBancaria VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         
         try {
             statement = con.prepareStatement(sql); // Prepara la sentencia
 
-            // Asigna los valores del objeto cliente jurídico a los parámetros
+            // Asigna los valores a los parámetros de la consulta
             statement.setLong(1, obj.cedulaPersonaAsociada);
             statement.setString(2, obj.numeroCuenta);
             statement.setDouble(3, obj.dineroEnLaCuenta);
             statement.setString(4, obj.PIN_Asociado);
             statement.setDouble(5, obj.regisComisiones);
             statement.setDouble(6, obj.cantidadRetiros);
-            statement.setBoolean(7,obj.statusCuentaActiva);
+            statement.setBoolean(7, obj.statusCuentaActiva);
             statement.setString(8, obj.fechaCreacion); 
             statement.setString(9, obj.nombreDuenio);
 
             // Ejecuta la sentencia de inserción
             int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0; // Retorna true solo si se insertó una fila
 
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -51,12 +58,21 @@ public class BaseDeDatosCuentaBancaria {
             if (statement != null) {
                 statement.close();
             }
+            // No cerramos `con` aquí, ya que es una conexión persistente
         }
     }
+
+
+
     public static List<CuentaBancaria> obtenerCuentasBancarias() throws SQLException {
         List<CuentaBancaria> listaCuentas = new ArrayList<>();
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
         Connection con = baseDeDatos.getConnection();
+
+        if (con == null || con.isClosed()) {
+            throw new SQLException("No se pudo establecer la conexión a la base de datos.");
+        }
+
         String sql = "SELECT * FROM cuentaBancaria";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -92,21 +108,21 @@ public class BaseDeDatosCuentaBancaria {
             }
         }
 
-        return listaCuentas; // Retornar la lista de cuentas bancarias
+        return listaCuentas; 
     }
+
     public static boolean limpiarTablaCuentas() throws SQLException {
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
         Connection con = baseDeDatos.getConnection();
-        String sql = "DELETE FROM cuentaBancaria"; // Sentencia para eliminar todos los registros
+        String sql = "DELETE FROM cuentaBancaria"; 
         PreparedStatement statement = null;
 
         try {
-            statement = con.prepareStatement(sql); // Prepara la sentencia
+            statement = con.prepareStatement(sql); 
 
-            // Ejecuta la sentencia de eliminación
             int rowsDeleted = statement.executeUpdate();
 
-            return rowsDeleted > 0; // Devuelve true si se eliminaron filas
+            return rowsDeleted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -117,22 +133,18 @@ public class BaseDeDatosCuentaBancaria {
         }
     }
     public static boolean insertarListaCuentasBancarias(List<CuentaBancaria> cuentas) throws SQLException {
-        boolean todasInsertadas = true; // Bandera para verificar si todas las inserciones fueron exitosas
-
+        boolean todasInsertadas = true; 
         for (CuentaBancaria cuenta : cuentas) {
-            boolean resultado = insertarDatosCBancaria(cuenta); // Llama al método de inserción existente
+            boolean resultado = insertarDatosCBancaria(cuenta); 
             if (!resultado) {
-                todasInsertadas = false; // Si alguna inserción falla, cambiar la bandera
+                todasInsertadas = false; 
             }
         }
 
-        return todasInsertadas; // Devuelve true si todas las inserciones fueron exitosas
+        return todasInsertadas; 
     }
     public static boolean actualizarPinCuenta(String nuevoPin, String numeroCuenta, String pinActual) throws SQLException {
-        // 1. Obtener la lista de cuentas bancarias
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
-
-        // 2. Actualizar el PIN de la cuenta si existe y si el PIN actual coincide
         boolean cuentaActualizada = verificarYActualizarPin(listaCuentas, nuevoPin, numeroCuenta, pinActual);
         if (!cuentaActualizada) {
             System.out.println("Cuenta no encontrada o el PIN actual es incorrecto.");
@@ -150,19 +162,16 @@ public class BaseDeDatosCuentaBancaria {
         return true;
     }
 
-    // Método que verifica que el PIN actual coincida y actualiza el PIN en la lista
     private static boolean verificarYActualizarPin(List<CuentaBancaria> listaCuentas, String nuevoPin, String numeroCuenta, String pinActual) {
         for (CuentaBancaria cuenta : listaCuentas) {
             if (cuenta.numeroCuenta.equals(numeroCuenta) && cuenta.PIN_Asociado.equals(pinActual)) {
-                // Si el número de cuenta y el PIN actual coinciden, se actualiza el PIN
                 cuenta.PIN_Asociado = nuevoPin;
-                return true;  // Cuenta encontrada y PIN actualizado
+                return true; 
             }
         }
-        return false;  // No se encontró la cuenta o el PIN actual no coincide
+        return false; 
     }
 
-    // Método que limpia la tabla e inserta la lista de cuentas actualizada
     private static boolean limpiarTablaYGuardarCuentas(List<CuentaBancaria> listaCuentas) throws SQLException {
         // Limpiar la tabla
         boolean tablaLimpiada = limpiarTablaCuentas();
@@ -170,7 +179,6 @@ public class BaseDeDatosCuentaBancaria {
             return false;
         }
 
-        // Insertar la lista actualizada de cuentas
         return insertarListaCuentasBancarias(listaCuentas);
     }
        

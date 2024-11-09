@@ -16,16 +16,20 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerL
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numClientesCreados;
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.numCuentasCreadas;
-import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuenta;
-import static disenioProyecto1.integracion.GenerarPDF.crearEstadoCuentaDolares;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosConteoUsers.*;
+import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
+import disenioProyecto1.integracion.GenerarPDF;
+import static disenioProyecto1.integracion.GenerarPDF.*;
+import disenioProyecto1.modelo.gestorBanco.EstadoCuenta.EstadoCuenta;
+import disenioProyecto1.modelo.gestorBanco.EstadoCuenta.IGeneradorEstadoCuenta;
+import disenioProyecto1.modelo.gestorBanco.EstadoCuentaDecorador.DecoradorTraduccion;
 import java.util.ArrayList;
 import java.util.List;
 import disenioProyecto1.modelo.usuarios.CJuridico;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import java.io.IOException;
 import java.sql.SQLException;
+import net.suuft.libretranslate.Language;
 
 public class GestionBanco {
 
@@ -54,43 +58,55 @@ public class GestionBanco {
         listaTransacciones.clear();
         return cantidad;
     }
-    public static boolean prevMandarStatusDolares (String numeroCuenta) throws SQLException, IOException, DocumentException{
-        
+    public static boolean prevMandarStatusDolares(String numeroCuenta, String idioma) throws SQLException, IOException, DocumentException {
         List<Transaccion> listaTransaccionesDelUsuario = ObtenerlistaTransacciones(numeroCuenta);
-        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);        
-        if (cuenta != null && listaTransaccionesDelUsuario != null){
-            long identificacion = cuenta.cedulaPersonaAsociada;
-            if(identificacion <= 999999999){            
-                CFisico cliente = obtenerCFisico(identificacion);
-                crearEstadoCuentaDolares(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
-                return true;
-            }else{            
-                CJuridico cliente = obtenerCJuridico(identificacion);
-                crearEstadoCuentaDolares(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
-                return true;
-            }
+        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);
+        if (cuenta != null && listaTransaccionesDelUsuario != null) {
+          long identificacion = cuenta.cedulaPersonaAsociada;
+          Language language = Language.valueOf(idioma.toUpperCase());
+          double tipoCambio = obtenerTipoCambio("318");
+
+          if (identificacion <= 999999999) {
+            CFisico cliente = obtenerCFisico(identificacion);
+            EstadoCuenta estado = new EstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario, tipoCambio, "Dólares");
+            IGeneradorEstadoCuenta decorador = new DecoradorTraduccion(new GenerarPDF(), language);
+            decorador.crearEstadoCuenta(estado);
+            return true;
+          } else {
+            CJuridico cliente = obtenerCJuridico(identificacion);
+            EstadoCuenta estado = new EstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario, tipoCambio, "Dólares");
+            IGeneradorEstadoCuenta decorador = new DecoradorTraduccion(new GenerarPDF(), language);
+            decorador.crearEstadoCuenta(estado);
+            return true;
+          }
         }
         return false;
-    }    
-    public static boolean prevMandarStatus (String numeroCuenta) throws SQLException, IOException, DocumentException{
-        
+      }
+
+      public static boolean prevMandarStatus(String numeroCuenta, String idioma) throws SQLException, IOException, DocumentException {
         List<Transaccion> listaTransaccionesDelUsuario = ObtenerlistaTransacciones(numeroCuenta);
-        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);        
-        if (cuenta != null && listaTransaccionesDelUsuario != null){
-            long identificacion = cuenta.cedulaPersonaAsociada;
-            if(identificacion <= 999999999){            
-                CFisico cliente = obtenerCFisico(identificacion);
-                crearEstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
-                return true;
-            }else{            
-                CJuridico cliente = obtenerCJuridico(identificacion);
-                crearEstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario);
-                return true;
-            }
+        CuentaBancaria cuenta = obtenerCuenta(numeroCuenta);
+        if (cuenta != null && listaTransaccionesDelUsuario != null) {
+          long identificacion = cuenta.cedulaPersonaAsociada;
+          Language language = Language.valueOf(idioma.toUpperCase());
+          double tipoCambio = 1;
+
+          if (identificacion <= 999999999) {
+            CFisico cliente = obtenerCFisico(identificacion);
+            EstadoCuenta estado = new EstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario, tipoCambio, "Colones");
+            IGeneradorEstadoCuenta decorador = new DecoradorTraduccion(new GenerarPDF(), language);
+            decorador.crearEstadoCuenta(estado);
+            return true;
+          } else {
+            CJuridico cliente = obtenerCJuridico(identificacion);
+            EstadoCuenta estado = new EstadoCuenta(cliente.correo, numeroCuenta, cliente.nombre, cuenta.dineroEnLaCuenta, listaTransaccionesDelUsuario, tipoCambio, "Colones");
+            IGeneradorEstadoCuenta decorador = new DecoradorTraduccion(new GenerarPDF(), language);
+            decorador.crearEstadoCuenta(estado);
+            return true;
+          }
         }
         return false;
-    }
-    
+      }
     public static List<Transaccion> ObtenerlistaTransacciones (String numeroCuenta) throws SQLException{
         List<Transaccion> listaTransacciones = obtenerTransacciones();
         ArrayList<Transaccion> listaTransaccionesDelUsuario = new ArrayList<>(); 

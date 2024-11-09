@@ -6,7 +6,7 @@ package disenioProyecto1.controladores;
 
 
 import disenioProyecto1.capaDatos.conexionSql.BasesDatos;
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.delegarCrearCFisico;
 import jakarta.servlet.annotation.WebServlet;
 import disenioProyecto1.capaDatos.validaciones.ValidacionesFormularios;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesUsuarios.validarNuevoCFisico;

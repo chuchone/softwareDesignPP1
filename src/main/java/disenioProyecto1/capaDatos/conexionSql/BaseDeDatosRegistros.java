@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package disenioProyecto1.capaDatos.conexionSql;
-
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
 import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +19,8 @@ import java.util.List;
 public class BaseDeDatosRegistros {
     public static void insertarDatosCBancaria(Transaccion obj) throws SQLException{
     
-        BasesDatos baseDeDatos = conectarBasesDeDatos();
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
         String sql = "INSERT INTO Registros VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
@@ -49,7 +49,8 @@ public class BaseDeDatosRegistros {
     }
     public static List<Transaccion> obtenerTransacciones() throws SQLException {
         List<Transaccion> transacciones = new ArrayList<>();
-        BasesDatos baseDeDatos = conectarBasesDeDatos(); 
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
         String sql = "SELECT * FROM Registros"; 
 
@@ -81,23 +82,24 @@ public class BaseDeDatosRegistros {
        
     }
     public static void eliminarTablaRegistros() throws SQLException {
-        BasesDatos baseDeDatos = conectarBasesDeDatos(); // Método que maneja la conexión
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
         Connection con = baseDeDatos.getConnection();
-        String sql = "DROP TABLE IF EXISTS Registros"; // Sentencia para eliminar la tabla
+        String sql = "DROP TABLE IF EXISTS Registros";
 
         PreparedStatement statement = null;
 
         try {
-            statement = con.prepareStatement(sql); // Prepara la sentencia
-            statement.executeUpdate(); // Ejecuta la sentencia de eliminación
+            statement = con.prepareStatement(sql); 
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (statement != null) {
-                statement.close(); // Cerrar el statement
+                statement.close(); 
             }
             if (con != null && !con.isClosed()) {
-                con.close(); // Cerrar la conexión
+                con.close(); 
             }
         }
     }

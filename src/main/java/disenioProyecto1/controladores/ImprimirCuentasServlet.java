@@ -37,13 +37,11 @@ public class ImprimirCuentasServlet extends HttpServlet {
 
     if (identificacion != null && identificacion.length() <= 11) {
       try {
+          
         long identificacionLong = Long.parseLong(identificacion);
         List<CuentaBancaria> listaCuentasDeUsuario = obtenerListaDeCuentasExistentes(identificacionLong);
 
-        // Crear un mapa para almacenar las transacciones por número de cuenta
         Map<String, List<Transaccion>> transaccionesPorCuenta = new HashMap<>();
-
-        // Obtener las transacciones para cada cuenta y almacenarlas en el mapa
         for (CuentaBancaria cuenta : listaCuentasDeUsuario) {
           List<Transaccion> transacciones = obtenerListaDeTransaccionesExistentes(cuenta.numeroCuenta);
           transaccionesPorCuenta.put(cuenta.numeroCuenta, transacciones); // Asociar transacciones a su número de cuenta

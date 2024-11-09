@@ -28,43 +28,40 @@ public class EnviarStatusCuentaDolaresServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // Obtener los parámetros del formulario
+            // Obtener los parÃ¡metros del formulario
             String numeroCuenta = request.getParameter("numeroCuenta");
             String pinCuenta = request.getParameter("pinCuenta");
-            
+            String idioma = request.getParameter("idioma"); 
+
             // Validar el PIN
             String errorMsg = validarPin(pinCuenta);
             String pinCifrado = encriptarPIN(pinCuenta);
             if (errorMsg == null) {
-                if (validarSiExisteCuentaYPin(numeroCuenta,pinCifrado )){
+                if (validarSiExisteCuentaYPin(numeroCuenta, pinCifrado)) {
 
-                    if(prevMandarStatusDolares(numeroCuenta)){
+                    if (prevMandarStatusDolares(numeroCuenta, idioma)) { 
 
                         request.getRequestDispatcher("confirmacionEstadoCuentaDolares.jsp").forward(request, response);
                         return;
-                    }else{
+                    } else {
                         request.setAttribute("mensajeDeError", "Hubo un error");
                         request.getRequestDispatcher("error.jsp").forward(request, response);
                         return;
                     }
-                }else{
-                     request.setAttribute("mensajeDeError", "Datos incorrectos");
-                     request.getRequestDispatcher("error.jsp").forward(request, response);
-                     return;
+                } else {
+                    request.setAttribute("mensajeDeError", "Datos incorrectos");
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                    return;
                 }
-                     
-            }else{
-                 request.setAttribute("mensajeDeError", errorMsg);
-                 request.getRequestDispatcher("error.jsp").forward(request, response);          
-           } 
-        } catch (SQLException ex ) {
-            Logger.getLogger(EnviarStatusCuentaColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
+
+            } else {
+                request.setAttribute("mensajeDeError", errorMsg);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EnviarStatusCuentaDolaresServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(EnviarStatusCuentaColonesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EnviarStatusCuentaDolaresServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-
-
 }
-

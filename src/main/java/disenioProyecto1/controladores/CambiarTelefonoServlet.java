@@ -9,7 +9,7 @@ import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerL
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.insertarClienteJuridico;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.limpiarTablaCJuridico;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
-import static disenioProyecto1.capaDatos.conexionSql.BasesDatos.delegarCrearCFisico;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.delegarCrearCFisico;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesUsuarios.*;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import disenioProyecto1.modelo.usuarios.CJuridico;

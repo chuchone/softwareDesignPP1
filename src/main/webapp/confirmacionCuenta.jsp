@@ -4,7 +4,8 @@
     Author     : Nelson
 --%>
 
-<%@page import="disenioProyecto1.gestorBanco.CuentaBancaria"%>
+<%@page import="disenioProyecto1.modelo.gestorBanco.CuentaBancaria"%>
+<%@page import="disenioProyecto1.modelo.gestorBanco.CuentaBancaria"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
