@@ -53,7 +53,7 @@ public class CorreoElectronico {
         mSession = Session.getDefaultInstance(mProperties);
     }
 
-private void createEmail(String emailTo, String subject, String content, String filePath) {
+    private void createEmail(String emailTo, String subject, String content, String filePath) {
         try {
             mCorreo = new MimeMessage(mSession);
             mCorreo.setFrom(new InternetAddress(emailFrom));

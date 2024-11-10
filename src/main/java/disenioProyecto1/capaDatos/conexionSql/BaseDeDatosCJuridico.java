@@ -4,8 +4,10 @@
  */
 package disenioProyecto1.capaDatos.conexionSql;
 
+import disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BasesDatos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import static disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton.conectarBasesDeDatos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.recorrerFisicosRCedula;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import disenioProyecto1.modelo.usuarios.CJuridico;

@@ -5,6 +5,7 @@
 package disenioProyecto1.controladores;
 
 
+import static disenioProyecto1.integracion.IPIntegracion.obtenerPaisDesdeIP;
 import static disenioProyecto1.modelo.gestorBanco.GestionBanco.obtenerComisiones;
 import static disenioProyecto1.modelo.gestorBanco.ResultadoCuenta.existeCuentaBancariaRet;
 import java.io.IOException;
@@ -36,8 +37,19 @@ public class ProcesarRetiroColonesDespSMS extends HttpServlet {
                 redirigirError(request, response, "Código SMS incorrecto.");
                 return;
             }
+            String ipAddress = request.getHeader("X-Forwarded-For");
+            if (ipAddress == null) {
+                ipAddress = request.getRemoteAddr();
+            }
+
+            // Obtener el sistema operativo del cliente (User-Agent)
+            String userAgent = request.getHeader("User-Agent");
+
+            // Obtener el país de origen a partir de la IP usando ipstack API
+            String country = obtenerPaisDesdeIP(ipAddress);
+            
             double cantidadARetirar = Double.parseDouble(montoRetiro);
-            boolean resultado = existeCuentaBancariaRet(numeroCuenta, cantidadARetirar, pinEncriptado);
+            boolean resultado = existeCuentaBancariaRet(numeroCuenta, cantidadARetirar, pinEncriptado, ipAddress, userAgent, country);
             double comisionesTotales = obtenerComisiones(numeroCuenta);
             if (resultado) {
                 // agregar al request comision

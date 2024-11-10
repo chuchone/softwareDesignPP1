@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package disenioProyecto1.capaDatos.conexionSql;
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BasesDatos;
+import static disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton.conectarBasesDeDatos;
 import disenioProyecto1.modelo.gestorBanco.Transaccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

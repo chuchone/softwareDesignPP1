@@ -34,12 +34,14 @@ import net.suuft.libretranslate.Language;
 public class GestionBanco {
 
 
-
     public static String generarCodigoCliente() {      
         return "CTE" + numClientesCreados();
     }
     public static String generarCodigoCuentaBancaria() {
         return "CTA" + numCuentasCreadas();
+    }
+    public static String generarCodigoBitacora(){
+        return "BTC" + incrementarConteoBitacoras();
     }
 
 

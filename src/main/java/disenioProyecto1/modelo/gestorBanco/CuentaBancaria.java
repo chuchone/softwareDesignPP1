@@ -5,17 +5,14 @@
 package disenioProyecto1.modelo.gestorBanco;
 
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.insertarDatosCBancaria;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import disenioProyecto1.capaDatos.validaciones.ValidacionesInternas;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarMulta;
 import static disenioProyecto1.capaDatos.validaciones.ValidacionesInternas.validarRetiro;
+import static disenioProyecto1.modelo.bitacoras.NotificationObserver.notificar;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Nelson
@@ -47,7 +44,7 @@ public class CuentaBancaria implements IBasicosBanco {
     }
     
     @Override
-    public void depositar(double cant) throws SQLException{
+    public void depositar(double cant, String ipAddress, String userAgent, String country) throws SQLException{
         double comision = 0;
         dineroEnLaCuenta = dineroEnLaCuenta + cant;
         if (validarRetiro(dineroEnLaCuenta, cant)) {
@@ -57,10 +54,13 @@ public class CuentaBancaria implements IBasicosBanco {
                 comision = calcularCincoPorciento(dineroEnLaCuenta);
                 aplicarMulta5Porciento(comision);
                 crearRegistro("Deposito", dineroEnLaCuenta, cant, comision);
+                notificarObservador(nombreDuenio, "El usuario realizo un depocito a su cuenta de "+ cant + "dinero en colones" ,ipAddress, userAgent, country);
+                
             
             }else{
                 crearRegistro("Deposito", dineroEnLaCuenta, cant, 0);
-                
+                notificarObservador(nombreDuenio, "El usuario realizo un depocito a su cuenta de "+ cant + "dinero en colones" ,ipAddress, userAgent, country);
+
             }
     
         }else{
@@ -70,7 +70,7 @@ public class CuentaBancaria implements IBasicosBanco {
     }
     
     @Override
-    public void retirar(double cant) throws SQLException{ // falta mejorar diseño del metodo, implementarlo mejor
+    public void retirar(double cant, String ipAddress, String userAgent, String country) throws SQLException{ // falta mejorar diseño del metodo, implementarlo mejor
         double comision = 0;
         if (validarRetiro(dineroEnLaCuenta, cant)) {
             dineroEnLaCuenta = dineroEnLaCuenta - cant;
@@ -79,8 +79,11 @@ public class CuentaBancaria implements IBasicosBanco {
                 comision = calcularCincoPorciento(dineroEnLaCuenta);
                 aplicarMulta5Porciento(comision);
                 crearRegistro("Retiro", dineroEnLaCuenta, cant, comision);
+                notificarObservador(nombreDuenio, "El usuario realizo un retiro a su cuenta de "+ cant + "dinero en colones" ,ipAddress, userAgent, country);
             } else {
                 crearRegistro("Retiro", dineroEnLaCuenta, cant, 0);
+                notificarObservador(nombreDuenio, "El usuario realizo un retiro a su cuenta de "+ cant + "dinero en colones" ,ipAddress, userAgent, country);
+
             }
         }else{
             System.out.println("Fallo");}
@@ -117,6 +120,10 @@ public class CuentaBancaria implements IBasicosBanco {
     }
     private Transaccion generarRegistro(double cant, String tipo, double comision, double dineroEnLaCuenta){
         return new Transaccion(cant, tipo, obtenerFechaActual(), comision, dineroEnLaCuenta, numeroCuenta);
+    }
+    
+    private void notificarObservador (String nombreDuenio, String accion, String ipAddress, String userAgent, String country) throws SQLException{    
+        notificar(accion, nombreDuenio, ipAddress, userAgent, country);    
     }
 }
 

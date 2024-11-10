@@ -11,6 +11,6 @@ import java.sql.SQLException;
  * @author Nelson
  */
 public interface IBasicosBanco {
-    public void depositar(double cant) throws SQLException ;
-    public void retirar(double cant) throws SQLException;
+    public void depositar(double cant, String ipAddress, String userAgent, String country) throws SQLException;
+    public void retirar(double cant, String ipAddress, String userAgent, String country) throws SQLException;
 }

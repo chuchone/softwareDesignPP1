@@ -38,11 +38,11 @@ public class ResultadoCuenta {
         return existeCuenta;
     }
     
-    public static ResultadoCuenta existeCuentaBancariaDep(String numCuenta, double cantidadDepositar) throws SQLException {
+    public static ResultadoCuenta existeCuentaBancariaDep(String numCuenta, double cantidadDepositar, String ipAddress, String userAgent, String country) throws SQLException {
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
         for (CuentaBancaria cuenta : listaCuentas) {
             if (cuenta.numeroCuenta.equals(numCuenta)) {
-                cuenta.depositar(cantidadDepositar);
+                cuenta.depositar(cantidadDepositar, ipAddress, userAgent, country);
                 limpiarTablaCuentas();
                 boolean seInserto = insertarListaCuentasBancarias(listaCuentas);
                 return new ResultadoCuenta(cuenta.dineroEnLaCuenta, cuenta.regisComisiones, true);
@@ -55,7 +55,7 @@ public class ResultadoCuenta {
     }
     
     
-    public static boolean existeCuentaBancariaRet(String numCuenta, double cantidadRetirar, String pin) throws SQLException {
+    public static boolean existeCuentaBancariaRet(String numCuenta, double cantidadRetirar, String pin, String ipAddress, String userAgent, String country) throws SQLException {
         List<CuentaBancaria> listaCuentas = obtenerCuentasBancarias();
 
         boolean existe = buscarCuentaPorNumeroYPin(listaCuentas, numCuenta, pin);
@@ -67,7 +67,7 @@ public class ResultadoCuenta {
             return false;
         }
 
-        return procesarRetiro(cantidadRetirar, listaCuentas, numCuenta);
+        return procesarRetiro(cantidadRetirar, listaCuentas, numCuenta, ipAddress, userAgent, country);
     }
     
     private static boolean cantidadEnCuenta(List<CuentaBancaria> listaCuentas, double cantidadRetirar){
@@ -97,10 +97,10 @@ public class ResultadoCuenta {
     }
 
     // Método para procesar el retiro y guardar cambios en la base de datos
-    private static boolean  procesarRetiro(double cantidadRetirar, List<CuentaBancaria> listaCuentas, String numCuenta) throws SQLException {
+    private static boolean  procesarRetiro(double cantidadRetirar, List<CuentaBancaria> listaCuentas, String numCuenta, String ipAddress, String userAgent, String country) throws SQLException {
         for(CuentaBancaria cuenta: listaCuentas){
             if (cuenta.numeroCuenta.equals(numCuenta)){
-                cuenta.retirar(cantidadRetirar);
+                cuenta.retirar(cantidadRetirar, ipAddress, userAgent, country);
             }
 
         }

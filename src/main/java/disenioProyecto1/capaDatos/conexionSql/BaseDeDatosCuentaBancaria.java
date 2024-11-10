@@ -1,6 +1,8 @@
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BasesDatos;
+import static disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton.conectarBasesDeDatos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerNumeroTelefono;
 import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import java.sql.Connection;

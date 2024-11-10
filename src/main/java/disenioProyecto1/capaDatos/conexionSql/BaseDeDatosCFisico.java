@@ -4,7 +4,9 @@
  */
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BasesDatos;
+import static disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton.conectarBasesDeDatos;
 import disenioProyecto1.modelo.usuarios.CFisico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +23,6 @@ public class BaseDeDatosCFisico {
     
     public static void insertarDatosCFisico(CFisico obj) throws SQLException {
         BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
-
         Connection con = baseDeDatos.getConnection();
 
         // Sentencia SQL para insertar datos

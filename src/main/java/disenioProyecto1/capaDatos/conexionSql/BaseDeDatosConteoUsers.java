@@ -4,7 +4,9 @@
  */
 package disenioProyecto1.capaDatos.conexionSql;
 
-import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosSingleton.conectarBasesDeDatos;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton;
+import disenioProyecto1.capaDatos.conexionSql.conectar.BasesDatos;
+import static disenioProyecto1.capaDatos.conexionSql.conectar.BaseDeDatosSingleton.conectarBasesDeDatos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -76,4 +78,36 @@ public class BaseDeDatosConteoUsers {
 
         return sumaColumna1; // Retorna la suma total de la columna 1
     }  
+        
+    public static int incrementarConteoBitacoras() {
+        BasesDatos baseDeDatos = BaseDeDatosSingleton.conectarBasesDeDatos();
+
+        String sqlSelect = "SELECT conteoBitacoras FROM informacionGeneral"; // Ajusta para obtener solo la columna relevante
+        String sqlUpdate = "UPDATE informacionGeneral SET conteoBitacoras = ?";
+
+        int sumaColumna2 = 0;
+
+        try (Connection con = baseDeDatos.getConnection();
+             PreparedStatement statementSelect = con.prepareStatement(sqlSelect);
+             ResultSet resultSet = statementSelect.executeQuery()) {
+
+            if (resultSet.next()) { 
+                int valorColumna2 = resultSet.getInt("conteoBitacoras"); 
+                sumaColumna2 = valorColumna2 + 1; // Suma 1 al valor de la columna
+
+                // Actualiza el valor de la columna
+                try (PreparedStatement statementUpdate = con.prepareStatement(sqlUpdate)) {
+                    statementUpdate.setInt(1, sumaColumna2); 
+                    int rowsUpdated = statementUpdate.executeUpdate();
+                   
+                }
+            } else {
+                System.out.println("No se encontró ningún registro en informacionGeneral.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+        }
+
+        return sumaColumna2; 
+    }
 }
