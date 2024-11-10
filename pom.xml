@@ -129,7 +129,20 @@
             <artifactId>memnets-api_2.12</artifactId>
             <version>1.0.0</version>
             <type>jar</type>
-        </dependency>                
+        </dependency>        
+        
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.13.3</version> <!-- Puedes usar la última versión disponible -->
+    </dependency>
+
+    <!-- Dependencia adicional para serialización de JSON en tipos específicos, opcional -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.13.3</version>
+    </dependency>                        
     </dependencies>
     
     <build>

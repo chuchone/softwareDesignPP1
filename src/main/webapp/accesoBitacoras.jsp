@@ -4,14 +4,17 @@
     Author     : Nelson
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Acceso a Bitácoras</title>
+</head>
+<body>
+    <h1>¿Deseas acceder a las bitácoras, se tomarán imagenes/videos de su persona para corroborar su identidad?</h1>
+    <form action="AccesoBitacorasServlet" method="post">
+        <button type="submit">Acceder a bitácoras</button>
+    </form>
+</body>
 </html>
