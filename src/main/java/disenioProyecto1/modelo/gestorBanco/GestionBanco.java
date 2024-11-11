@@ -12,14 +12,18 @@ package disenioProyecto1.modelo.gestorBanco;
 
 import disenioProyecto1.modelo.gestorBanco.CuentaBancaria;
 import com.itextpdf.text.DocumentException;
+import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosBitacoras.obtenerListaBitacoras;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCFisico.obtenerListaClientesFisicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCJuridico.obtenerListaClientesJuridicos;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosCuentaBancaria.obtenerCuentasBancarias;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosRegistros.obtenerTransacciones;
 import static disenioProyecto1.capaDatos.conexionSql.BaseDeDatosConteoUsers.*;
+import disenioProyecto1.integracion.AnalisisSentimientosAWS;
 import static disenioProyecto1.integracion.ConexionBCCR.obtenerTipoCambio;
 import disenioProyecto1.integracion.GenerarPDF;
 import static disenioProyecto1.integracion.GenerarPDF.*;
+import static disenioProyecto1.modelo.bitacoras.AnalisisBitacoras.analizarUltimasBitacoras;
+import disenioProyecto1.modelo.bitacoras.Bitacoras;
 import disenioProyecto1.modelo.gestorBanco.EstadoCuenta.EstadoCuenta;
 import disenioProyecto1.modelo.gestorBanco.EstadoCuenta.IGeneradorEstadoCuenta;
 import disenioProyecto1.modelo.gestorBanco.EstadoCuentaDecorador.DecoradorTraduccion;
@@ -156,6 +160,13 @@ public class GestionBanco {
         return null;
     
     }
-
+    public static String analisisSentimientos () throws SQLException{            
+        List<Bitacoras> bitacoras = obtenerListaBitacoras();
+        String text = analizarUltimasBitacoras(bitacoras);
+        AnalisisSentimientosAWS sentimentAnalysis = new AnalisisSentimientosAWS();
+        String sentimentResult = sentimentAnalysis.analyzeSentiment(text);
+        return sentimentResult;
+    }
+        
 }
   
