@@ -52,9 +52,9 @@ public class DepositoCambioServlet extends HttpServlet {
         String userAgent = request.getHeader("User-Agent");
 
         // Obtener el país de origen a partir de la IP usando ipstack API
-        String country = obtenerPaisDesdeIP(ipAddress);
+        //String country = obtenerPaisDesdeIP(ipAddress);
         try {
-            ResultadoCuenta informacionCuenta = existeCuentaBancariaDep(numeroCuenta, montoEnColones, ipAddress, userAgent, country);
+            ResultadoCuenta informacionCuenta = existeCuentaBancariaDep(numeroCuenta, montoEnColones, ipAddress, userAgent, "Costa Rica");
             if (informacionCuenta.isExisteCuenta()) {
                 // Pasar los valores como atributos al JSP
                 request.setAttribute("numeroCuenta", numeroCuenta);

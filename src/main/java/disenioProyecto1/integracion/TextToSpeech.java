@@ -4,6 +4,7 @@ package disenioProyecto1.integracion;
  *
  * @author Nelson
  */
+import jakarta.servlet.http.HttpServletResponse;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.SynthesizeSpeechRequest;
 import software.amazon.awssdk.services.polly.model.SynthesizeSpeechResponse;
@@ -13,23 +14,26 @@ import javazoom.jl.player.Player;
 import java.io.ByteArrayInputStream;
 
 public class TextToSpeech {
-    public void speak(String text) throws Exception {
+    public void generateAudio(HttpServletResponse response, String text) throws Exception {
         try (PollyClient pollyClient = PollyClient.create()) {
             // Solicitud a AWS Polly
             SynthesizeSpeechRequest request = SynthesizeSpeechRequest.builder()
                     .text(text)
-                    .voiceId("Lucia") // Cambia según tu idioma
-                    .outputFormat(software.amazon.awssdk.services.polly.model.OutputFormat.MP3) // Cambia a MP3 para mejor compatibilidad
+                    .voiceId("Lucia")
+                    .outputFormat(software.amazon.awssdk.services.polly.model.OutputFormat.MP3)
                     .build();
 
             // Flujo de audio devuelto por Polly
-            ResponseInputStream<SynthesizeSpeechResponse> response = pollyClient.synthesizeSpeech(request);
+            ResponseInputStream<SynthesizeSpeechResponse> synthesizeSpeechResponse = pollyClient.synthesizeSpeech(request);
 
-            // Reproducir el audio directamente desde el flujo
-            Player player = new Player(new ByteArrayInputStream(response.readAllBytes()));
-            player.play();
+            // Configura la respuesta para enviar el audio al cliente
+            response.setContentType("audio/mpeg");
+            response.setHeader("Content-Disposition", "inline; filename=\"speech.mp3\"");
+            response.getOutputStream().write(synthesizeSpeechResponse.readAllBytes());
+            response.getOutputStream().flush();
         } catch (Exception e) {
-            throw new Exception("Error al reproducir el audio: " + e.getMessage(), e);
+            throw new Exception("Error al generar el audio: " + e.getMessage(), e);
         }
     }
+
 }

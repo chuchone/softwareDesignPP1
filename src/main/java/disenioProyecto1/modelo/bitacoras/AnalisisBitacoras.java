@@ -26,8 +26,9 @@ public class AnalisisBitacoras {
         prompt.append("\nEn base a estos datos, realiza el siguiente análisis:\n");
         prompt.append("1. ¿Hay acciones repetidas por el mismo usuario?\n");
         prompt.append("2. ¿Hay un cambio notable en el sistema operativo o país de acceso?\n");
-        prompt.append("3. ¿Se observa un patrón en las fechas y horas de las acciones?\n");
-        prompt.append("4. Describe cualquier observación relevante sobre los datos de IP o acciones de usuario.\n");
+        prompt.append("3. Describe cualquier observación relevante sobre los datos de IP o acciones de usuario.\n");
+        prompt.append("4. Describe cualquier observación relevante para temas de moderacion o para seguimientos de usuarios\n");
+
 
         return prompt.toString();
     }

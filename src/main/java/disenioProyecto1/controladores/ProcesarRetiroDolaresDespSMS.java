@@ -46,7 +46,7 @@ public class ProcesarRetiroDolaresDespSMS extends HttpServlet {
             String userAgent = request.getHeader("User-Agent");
 
             // Obtener el país de origen a partir de la IP usando ipstack API
-            String country = obtenerPaisDesdeIP(ipAddress);
+            String country = "Costa Rica";//obtenerPaisDesdeIP(ipAddress);
             
             double cantidadARetirar = Double.parseDouble(montoRetiro);
             boolean resultado = existeCuentaBancariaRet(numeroCuenta, cantidadARetirar, pinEncriptado, ipAddress, userAgent, country);

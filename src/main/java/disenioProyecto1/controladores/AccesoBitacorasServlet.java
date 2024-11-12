@@ -1,4 +1,3 @@
-
 package disenioProyecto1.controladores;
 
 /**
@@ -18,7 +17,16 @@ import java.io.IOException;
 
 @WebServlet("/AccesoBitacorasServlet")
 public class AccesoBitacorasServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
+    // Manejo para solicitudes GET
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        response.getWriter().println("Error: Este servlet requiere que uses el método POST.");
+    }
+
+    // Manejo para solicitudes POST
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FaceRecognitionService faceRecognitionService = new FaceRecognitionService();
@@ -54,7 +62,17 @@ public class AccesoBitacorasServlet extends HttpServlet {
             response.sendRedirect("verBitacoras.jsp");
         } else {
             // Si no coincide, muestra un mensaje de error
-            response.getWriter().println("Error: No se pudo verificar la identidad.");
+            response.sendRedirect("error.jsp");
         }
+    }
+
+    // Manejo para cualquier método HTTP no permitido
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!"POST".equalsIgnoreCase(request.getMethod()) && !"GET".equalsIgnoreCase(request.getMethod())) {
+            response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Método HTTP no permitido.");
+            return;
+        }
+        super.service(request, response);
     }
 }

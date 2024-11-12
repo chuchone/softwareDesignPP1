@@ -69,7 +69,7 @@
     </header>
     <div class="container">
         <div class="exchange-rate-box">
-            <p>Tipo de Cambio Venta: <strong>₡<%= request.getAttribute("tipoCambioCompra") %></strong></p>
+            <p>Tipo de Cambio Compra: <strong>₡<%= request.getAttribute("tipoCambioCompra") %></strong></p>
             <a href="index.jsp" class="back-button">Volver al inicio</a>
         </div>
     </div>

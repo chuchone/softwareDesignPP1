@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package disenioProyecto1.integracion;
 
 import java.io.ByteArrayInputStream;
@@ -19,11 +15,14 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
  * @author Nelson
  */
+
 public class ConexionBCCR {
     
     public static double obtenerTipoCambio(String tipoOperacion){
@@ -36,14 +35,14 @@ public class ConexionBCCR {
         return montoDolares * tipoCambio;
     }
     
-    public static String obtenerTipoDeCambio(String tipoDeOperacion)
-    {
+    public static String obtenerTipoDeCambio(String tipoDeOperacion) {
         try {
-            // Crear el mensaje SOAP
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaActual = sdf.format(new Date());
+
             MessageFactory messageFactory = MessageFactory.newInstance();
             SOAPMessage soapMessage = messageFactory.createMessage();
 
-            // Crear el objeto SOAP
             SOAPPart soapPart = soapMessage.getSOAPPart();
             SOAPEnvelope envelope = soapPart.getEnvelope();
             envelope.addNamespaceDeclaration("ws", "http://ws.sdde.bccr.fi.cr");
@@ -51,8 +50,8 @@ public class ConexionBCCR {
             SOAPBody soapBody = envelope.getBody();
             SOAPElement soapBodyElem = soapBody.addChildElement("ObtenerIndicadoresEconomicos", "ws");
             soapBodyElem.addChildElement("Indicador", "ws").addTextNode(tipoDeOperacion); 
-            soapBodyElem.addChildElement("FechaInicio", "ws").addTextNode("26/09/2024");
-            soapBodyElem.addChildElement("FechaFinal", "ws").addTextNode("26/09/2024");
+            soapBodyElem.addChildElement("FechaInicio", "ws").addTextNode(fechaActual);
+            soapBodyElem.addChildElement("FechaFinal", "ws").addTextNode(fechaActual);
             soapBodyElem.addChildElement("Nombre", "ws").addTextNode("Nelson Chavarria Aragón");
             soapBodyElem.addChildElement("SubNiveles", "ws").addTextNode("N");
             soapBodyElem.addChildElement("CorreoElectronico", "ws").addTextNode("jesuschavarria483@gmail.com");
@@ -89,11 +88,7 @@ public class ConexionBCCR {
             e.printStackTrace();
             return "falla";
         }
-        
-                
     }
-    
-    
     
     public static String obtenerNumValor(String strResponse) {
         try {
@@ -118,7 +113,5 @@ public class ConexionBCCR {
             e.printStackTrace();
             return null; // O manejar la excepción adecuadamente
         }
-    }    
-    
-    
+    }
 }

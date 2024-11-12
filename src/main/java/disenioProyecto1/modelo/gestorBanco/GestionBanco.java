@@ -160,12 +160,12 @@ public class GestionBanco {
         return null;
     
     }
-    public static String analisisSentimientos () throws SQLException{            
-        List<Bitacoras> bitacoras = obtenerListaBitacoras();
+    public static String analisisSentimientos (List<Bitacoras> bitacoras) throws SQLException{            
         String text = analizarUltimasBitacoras(bitacoras);
-        AnalisisSentimientosAWS sentimentAnalysis = new AnalisisSentimientosAWS();
-        String sentimentResult = sentimentAnalysis.analyzeSentiment(text);
-        return sentimentResult;
+        System.out.println(text);
+        //AnalisisSentimientosAWS sentimentAnalysis = new AnalisisSentimientosAWS();
+        //String sentimentResult = sentimentAnalysis.analyzeSentiment(text);
+        return text;
     }
         
 }

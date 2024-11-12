@@ -27,7 +27,7 @@ public class ChatGPTClient {
         CompletionRequest request = CompletionRequest.builder()
                 .model("gpt-3.5-turbo-instruct")
                 .prompt(pregunta)
-                .maxTokens(125)
+                .maxTokens(300)
                 .build();
 
         List<CompletionChoice> choices = openAiService.createCompletion(request).getChoices();
